@@ -1,0 +1,363 @@
+//MARK: - General
+"confirm" = "Okay";
+"error" = "Error";
+"cancel" = "Cancel";
+"search" = "Search";
+"close_action" = "Close";
+"done_action" = "Done";
+"send_action" = "Send";
+"save_action" = "Save";
+"options" = "Options";
+"warning" = "Warning";
+"again"= "Try Again";
+"show_more" = "... Show more";
+"show_less" = " Show less";
+"see_all" = "See all";
+"settings" = "Settings";
+"external_settings" = "App Settings";
+"loading" = "Loading...";
+
+"accept" = "Accept";
+"decline" = "Decline";
+
+"date_years" = "years";
+"date_year" = "year";
+"date_months" = "months";
+"date_month" = "month";
+"date_days" = "days";
+"date_day" = "day";
+"date_hours" = "hours";
+"date_hour" = "hour";
+"date_minutes" = "minutes";
+"date_minute" = "minute";
+"date_now" = "now";
+
+
+//MARK: - Camera
+"choose_photo" = "Choose photo from library";
+"choose_video" = "Choose video from library";
+"take_photo" = "Take photo";
+"take_video" = "Take video";
+"no_camera_permission"="You don't have camera";
+"go_to_settings_title" = "Settings";
+"go_to_settings_detail" = "You need to provide access through System Settings. Once you change those settigns however, the app will be restarted by the system. Make sure you don't lose any information.";
+"fetching_images" = "Fetching remote images";
+
+//MARK: - Login
+"login_username_placeholder" = "Email";
+"login_password_placeholder" = "Password";
+"login_button_title" = "Log In";
+"login_button_title_forgot_password" = "Forgot password?";
+"login_title_dont_have_an_account" = "Don’t have an account?";
+"login_button_title_sign_up" = "Sign up";
+
+//MARK: - Logout
+"logout_invalid_token" = "Invalid token.";
+
+//MARK: - Forgot Pwd
+"forgot_pwd_title" = "Forgot Password";
+"forgot_pwd_hint" = "Hey, it happens to everyone. Just let us know what email address you use to log in and we will send you an email with instructions.";
+"forgot_pwd_send" = "Send";
+"forgot_pwd_success" = "If there is an account registered to the email address supplied we will send an email to that address with instructions on how to reset your password.";
+
+//MARK: - Sign up
+"sign_up_title_one" = "Please specify email and password";
+"sign_up_hint_email" = "Email";
+"sign_up_hint_password" = "Password";
+"sign_up_title_two" = "Your Name";
+"sign_up_hint_first_name" = "First name";
+"sign_up_hint_last_name" = "Last name";
+"sign_up_title_three" = "More Info";
+"sign_up_hint_title_one" = "Title one (optional)";
+"sign_up_hint_title_two" = "Title two (optional)";
+"sign_up_action_create_account" = "Create account";
+"sign_up_action_create_account" = "Create account";
+"sign_up_privacy_policy" = "I have read and agree with the Terms and Conditions and Privacy Policy";
+"sign_up_error_email_invalid" = "User already exists, please login or use another email address";
+"sign_up_error_invalid_name" = "Needs to be between 2 and 30 characters long, contain no emojis and no numbers";
+"sign_up_error_invalid_passowrd" = "Passwords must be between 6 and 20 characters long, contain no emojis and no spaces";
+"sign_up_email_failed_regex" = "Please enter a valid email address";
+
+"first_name" = "First Name";
+"last_name" = "Last Name";
+"intro" = "Introduction";
+"location" = "Location";
+"emailAddress" = "Email";
+"log_out" = "Log out";
+
+//MARK: - Profile Blocking
+"blocked %@" = "You have blocked %@";
+"block_prompt" = "Block user?";
+"block_message %@" = "If you block %@ they will not be able to see your profile or contact you. All previous posts, tags and communication will be hidden.";
+"block_action" = "Block";
+"unblock_action" = "Unblock";
+"unblock_prompt" = "Unblock this user?";
+"%@ is_blocked" = "%@ is blocked!";
+
+//MARK: - Edit profile
+"edit_profile_changes_title" = "Unsaved Changes";
+"edit_profile_changes_message" = "You have unsaved changes. Are you sure you want to cancel?";
+"edit_profile_changes_dismiss" = "No";
+"edit_profile_changes_confirm" = "Yes";
+"edit_profile_invalid_title" = "Title must be at most 3 characters long, no emojis and numbers.";
+"edit_profile_invalid_name" = "Name must be at most 30 characters long, no emojis and numbers.";
+"edit_profile_invalid_description" = "Title must be at most 150 characters long.";
+
+//MARK: - Profile page
+"profile_posts" = "posts";
+"profile_followers" = "followers";
+"profile_following" = "following";
+
+//MARK: - Follow profile
+
+"profile_follow_btn" = "Follow";
+"profile_following_btn" = "Following";
+"profile_edit" = "Edit Profile";
+"profile_message" = "Message";
+
+//MARK: - Report user
+"report_user_min_characters_exceeded" = "Message should be longer then 10 characters";
+"report_user_max_characters_exceeded" = "You have exceeded the maximum character count of 280.";
+"report_user_please_explain" = "Please explain why you’re reporting this user…";
+"user_reported" = "User reported";
+"Message should be longer then 10 characters";
+"report_option"="Report";
+
+//MARK: - Channels
+"channels_title" = "Channels";
+"create_channel_btn" = "Create Channel";
+"channels_list_empty_state_message" = "You are not a member of any channels. Join or create one to add it to this list.";
+"member_channels_list_empty_state_message" = "You are not a member of any channels. Join or create one to add it to this list.";
+"owned_channels_list_empty_state_message" = "You don't own any channels yet, click create a channel to get started.";
+"not_a_member_of_channel" = "You are not a member of this channel.";
+"wall" = "Wall";
+"chat" = "Chat";
+"members" = "Members";
+"timeline_title" = "Timeline";
+"photos_title" = "Photos";
+"unfollow" = "Unfollow";
+"channel_following" = "Following";
+"channel_follow_btn" = "Follow";
+"channel_list_empty_state_title" = "Welcome to the channels page";
+"channel_list_empty_state_details" = "You haven't followed any channels yet, head to the explore page to see a full list";
+"channel_list_empty_state_button" = "Explore";
+
+//MARK: - Suggested Channels
+"suggested_channels_no_results_title" = "Welcome to the explore page";
+"suggested_shannels_no_results_detail" = "You have followed all the channels, continue to explore new content on the channels page";
+"suggested_channels_no_results_action" = "Channels";
+
+//MARK: - Channel details
+"%@, %@ and %@ and %d more followers" = "%@, %@ and %@ and %d others are following this channel";
+"%@, %@ and %@ 3 followers" = "%@, %@ and %@ are following this channel.";
+"%@ and %@ 2 followers" = "%@ and %@ are following this channel.";
+"%@ 1 follower" = "%@ is following this channel.";
+"0 followers" = "No followers.";
+
+//MARK: - Create Channel
+"channel_name" = "Channel name";
+"privacy_setting" = "Privacy settings";
+"invite_members" = "Invite people";
+"%@ members" = "%@ members";
+"%@ member" = "%@ members";
+"create_channel" = "Create a channel";
+"public" = "Public";
+"public_privacy_description" = "Anyone can see the channel, its members and content.";
+"private" = "Private";
+"private_privacy_description" = "Only invited members can find the channel and see content.";
+"closed" = "Closed";
+"closed_privacy_description" = "Anyone can find the channel but only members can see content. Admins must approve join requests.";
+"invite_btn" = "Add";
+"%@ invited" = "%@ added";
+"select_invited" = "Select people to invite";
+"%@ created" = "%@ created";
+"group_created_btn" = "Got it!";
+"allGroups" = "All";
+"myGroups" = "My Channels";
+"ownedGroups" = "Channels I Own";
+
+//MARK: - Posts
+"post_action" = "Post";
+"create_post_cancel" = "Cancel Editing?";
+"exit_editing_option" = "Exit editing";
+"continue_editing_option" = "Continue editing";
+"share_to_title" = "Share to";
+"share_action" = "Share";
+"view_more_comments" = "View more comments";
+"view_x_comments" = "View %@ comments";
+"%@ post" = "%@'s Post";
+"%@ posts" = "%@'s Posts";
+"posted_to" = "posted to";
+"post_unavailable" = "Post unavailable";
+
+//MARK: - Post Actions
+"edit_post" = "Edit Post";
+"hide_own_post" = "Hide Post From Timeline";
+"turn_off_post_notifications" = "Turn Off Post Notifications";
+"turn_on_post_notifications" = "Turn On Post Notifications";
+"delete_post" = "Delete";
+"hide_post" = "Hide Post";
+"%@ unfollow" = "Unfollow %@";
+"report" = "Report";
+
+//MARK: - Create Post
+"create_post" = "Create Post";
+"edit_post" = "Edit Post";
+"share_post" = "Share Post";
+"create_post_placeholder" = "Write a post to interact with other users";
+"who_can_view_my_post" = "Who can view my post";
+"comments" = "Comments";
+"post_public_privacy_description" = "Anyone can see the post, its members and content.";
+"post_private_privacy_description" = "Only invited members can find the post and see content.";
+"post_followers_only_privacy_description" = "Only people who follow you can find the post and see its content.";
+"hashtag" = "#hashtag";
+"tag" = "@tag friend";
+"share_to" = "Share to";
+"your_channels" = "Your Channels";
+"discard_post_option" = "Discard Post";
+"post_discard_changes_description" = "If you left post creation changes will be lost. Do you want to discard post?";
+"upload_photo_button" = "photo";
+"upload_video_button" = "video";
+"post_likes" = "likes";
+"post_view" = "View";
+"post_comments" = "comments";
+"post_comment" = "comment";
+"comments_replies" = "comments";
+"comments_reply" = "comment";
+
+//MARK: - Share Post
+"followers" = "Followers";
+"follower" = "Follower";
+
+//MARK: - Comments
+"Add_comment" = "Add a comment...";
+"Delete_comment" = "Delete a comment?";
+
+//MARK: - Empty Placeholders
+"combined_feed_empty_title" = "Welcome to %@";
+"combined_feed_empty_detail" = "Get started by completing your profile. Add interest channels and follow friends to see content in your feed. Hit up the Campus Society profile to give us feedback.";
+
+"my_profile_empty_title" = "Welcome to your profile";
+"my_profile_empty_detail" = "Pics, bio and your uni deets will help you meet other students. Create your own posts and share content.";
+
+"profile_empty_title" = "Welcome to %@’s profile";
+"profile_empty_detail" = "%@ hasn’t posted anything yet but check back to see when they do.";
+
+"channel_member_empty_title" = "Welcome to %@";
+"channel_member_empty_detail" = "Be the first to start a discussion, post and comment.";
+
+"channel_not_member_empty_title" = "Welcome to %@";
+"channel_not_member_empty_detail" = "Join this channel to join the discussion, post and comment.";
+
+"notifications_list_empty_placeholder" = "But when you do get one you will find it here!";
+"notifications_list_empty_title" = "You have no notifications";
+
+//MARK: - Chat
+"invited_to_chat" = "Invited you to chat";
+"chat_missed_token_error" = "Can't obtain token";
+"chat_input_view_placeholder" = "Type a message...";
+"request_chat_placeholder_invitation_sent" = "You requested to chat with %@.";
+"request_chat_placeholder" = "%@ has requested to chat with you";
+"chat_disabled_view_connecting" = "Connecting...";
+"chat_empty_view" = "%@ joined the chat";
+"chat_disabled_view_connection_completed" = "Connection completed...";
+"chat_disabled_view_connection_failed" = "Connection failed";
+"chat_disabled_view_updating_chat_channel" = "Updating conversation...";
+"chat_disabled_channel_id_not_found" = "Conversation not found";
+
+//MARK: - Conversations
+"conversations_list_title" = "Chat";
+"conversations_list_view_updating_chat_channnels" = "Updating conversations...";
+"conversations_list_empty_placeholder_title" = "No messages yet...";
+"conversations_list_empty_placeholder_description" = "But when you do get one you will find it here!";
+
+//MARK: - Notifications
+"notifications_title" = "Notifications";
+"notifications_this_week_section" = "This Week";
+"USER_FOLLOWED_YOU" = "followed you";
+"USER_MENTIONED_YOU_IN_A_COMMENT" = "mentioned you in a comment";
+"USER_MENTIONED_YOU_IN_A_POST" = "mentioned you in a post";
+"USER_LIKED_YOUR_POST" = "liked your post";
+"USERS_LIKED_YOUR_POST" = "liked your post";
+"USER_COMMENTED_ON_YOUR_POST" = "commented on your post";
+"USER_SHARED_YOUR_POST" = "shared your post";
+"USER_INVITED_YOU_TO_FOLLOW_CHANNEL" = "invited you to follow channel";
+"USER_LIKED_YOUR_POST_MEDIA_ONLY" = "liked your post";
+"TWO_USERS_LIKED_YOUR_POST" = "liked your post";
+"TWO_USERS_LIKED_YOUR_POST_MEDIA_ONLY" = "liked your post";
+"USERS_LIKED_YOUR_POST_MEDIA_ONLY" = "liked your post";
+"TWO_USERS_COMMENTED_ON_YOUR_POST" = "commented on your post";
+"USERS_COMMENTED_ON_YOUR_POST" = "commented on your post";
+"USER_COMMENTED_ON_YOUR_POST_MEDIA_ONLY" = "commented on your post";
+"TWO_USERS_COMMENTED_ON_YOUR_POST_MEDIA_ONLY" = "commented on your post";
+"USERS_COMMENTED_ON_YOUR_POST_MEDIA_ONLY" = "commented on your post";
+"Mark_all_as_read" = "Mark all as read";
+"Notification_settings" = "Notification settings";
+"reload_notifications_list" = "Reload";
+
+//MARK: - Search
+"explore" = "Explore";
+"explore_search_placeholder" = "Search";
+"explore_search_profiles" = "Profiles";
+"explore_search_posts" = "Posts";
+"explore_search_channels" = "Channels";
+
+"explore_followed_channels" = "Channels you are following";
+"explore_suggested_channels" = "Suggested channels";
+"explore_suggested_profiles" = "Suggested people";
+
+"search_no_results1" = "0 results";
+"search_no_results2" = "Try a different search term or ensure your spelling is correct";
+
+//MARK: - SimpleReport
+"simple_report_post_title" = "Report this post?";
+"simple_report_comment_title" = "Report this comment?";
+"simple_report_profile_title" = "Report this profile?";
+"simple_report_Post_Question" = "\nYou can report this post to us if you have any concerns with the content.\n\nPlease confirm you want to proceed.\n\nIf someone is in immediate danger, call the local emergency services.\n";
+"simple_report_Comment_Question" = "\nYou can report this comment to us if you have any concerns with the content.\n\nPlease confirm you want to proceed.\n\nIf someone is in immediate danger, call the local emergency services.\n";
+"simple_report_Profile_Question" = "\nYou can report this profile to us if you have any concerns with the content.\n\nPlease confirm you want to proceed.\n\nIf someone is in immediate danger, call the local emergency services.\n";
+"simple_report_Report_button" = "Report";
+"simple_report_thank_you_message" = "Thank you for reporting. We will review and take the necessary action.";
+
+//MARK: - Profile List
+"profile_list_title_following" = "Following";
+"profile_list_title_followers" = "Followers";
+"profile_list_title_members" = "Members";
+"profile_list_title_likes" = "Likes";
+"profile_list_title_suggested" = "Suggested People";
+"profile_list_title_blocked_accounts" = "Blocked Accounts";
+"profile_list_title_shares" = "Shared by";
+"profile_list_title_unblock" = "Unblock Accounts";
+"profile_list_blocked_empty_title" = "No blocked accounts";
+"profile_list_blocked_empty_message" = "You haven't blocked any user accounts yet. If you do, you will see a list of them here.";
+
+
+//MARK: - Settings
+
+"blockedProfiles" = "Blocked Accounts";
+"resetPassword" = "Password";
+"external" = "App Settings";
+
+//MARK: - Errors
+"human_readable_error_unknown" = "Something went wrong, please try again later";
+"human_readable_error_check_network_connection" = "Network connection offline";
+"human_readable_error_client_badRequest" = "Bad Request";
+"human_readable_error_client_unauthorised" = "We are sorry, these login details are not recognised";
+"human_readable_error_client_forbidden" = "We are sorry, this account has not been verified";
+
+"human_readable_error_client_requestTimeout" = "Something went wrong, please try again later";
+"human_readable_error_client_paymentRequired" = "Something went wrong, please try again later";
+"human_readable_error_client_notFound" = "Something went wrong, please try again later"; //404
+"human_readable_error_client_methodNotAllowed" = "Something went wrong, please try again later"; // 405
+"human_readable_error_client_notAcceptable" = "Something went wrong, please try again later";
+"human_readable_error_client_proxyAuthenticationRequired" = "Something went wrong, please try again later";
+"human_readable_error_client_unsupportedMediaType" = "Something went wrong, please try again later";
+"human_readable_error_client_noResponse" = "Something went wrong, please try again later";
+
+"human_readable_error_server_internalServerError" = "Something went wrong, please try again later";
+"human_readable_error_server_notImplemented" = "Something went wrong, please try again later";
+"human_readable_error_server_badGateway" = "Something went wrong, please try again later";
+"human_readable_error_server_serviceUnavailable" = "Something went wrong, please try again later";
+"human_readable_error_server_gatewayTimeout" = "Something went wrong, please try again later";
+
+

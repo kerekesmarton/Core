@@ -1,0 +1,3642 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Test Results | xcpretty</title>
+    <style type="text/css">
+      body { font-family:Avenir Next, Helvetica Neue, sans-serif; color: #4A4A4A; background-color: #F0F3FB; margin:0;}
+      h1 { font-weight: normal; font-size: 24px; margin: 10px 0 0 0;}
+      h3 { font-weight: normal; margin: 2px; font-size: 1.1em;}
+      header { position: fixed;width: 100%;background: rgba(249, 254, 255, 0.9);margin: 0;padding: 10px;}
+      header:before, header:after { content:""; display:table;}
+      header:after { clear:both;}
+      a:link { color: #A1D761;}
+      footer { clear: both;position: relative;z-index: 10;height: 40px;margin-top: -10px; margin-left:30px; font-size:12px;}
+      table { width:100%; border-collapse: collapse;}
+      tr td:first-child { width:7%}
+      .left { float: left; margin-left:30px;}
+      .right { float: right; margin-right: 40px; margin-top: 0; margin-bottom:0;}
+      .test-suite { margin: 0 0 30px 0;}
+      .test-suite > .heading { font-family:Menlo, Monaco, monospace; font-weight: bold; border-color: #A1D761; background-color: #B8E986; border-width: 1px;}
+      .test-suite.failing > .heading { border-color: #C84F5E; background-color: #E58591;}
+      .test-suite > .heading > .title { margin-top: 4px; margin-left: 10px;}
+      .tests { overflow: scroll;margin: 0 30px 0 60px;}
+      .test, .test-suite > .heading { height: 30px; overflow: hidden; margin: 0 30px;}
+      .test, .test-suite > .heading { border-width: 1px; border-collapse: collapse; border-style: solid; }
+      .test { margin-left: 30px; border-top:none;}
+      .test.failing { border-color: #C84F5E; background-color: #F4DDE0;}
+      .test.passing { border-color: #A1D761;}
+      .test.failing { background-color: #E7A1AA;}
+      .test.passing { background-color: #CAF59F;}
+      .test.failing.odd { background-color: #EEC7CC;}
+      .test.passing.odd { background-color: #E5FBCF;}
+      .details.failing { background-color: #F4DDE0; border: 1px solid #C84F5E;}
+      .details.passing { background-color: #E5F4DC; border: 1px solid #A1D761;}
+      .test .test-detail:last-child { padding-bottom: 8px;}
+      .test .title { float: left; font-size: 0.9em; margin-top: 8px; font-family: Menlo, Monaco, monospace;}
+      .test .time { float: left;margin: 4px 10px 0 20px;}
+      .test-detail { font-family:Menlo, Monaco, monospace; font-size: 0.9em; margin: 5px 0 5px 0px;}
+      .screenshots { height: auto; overflow: hidden; padding: 4px 4px 0 4px; background-color: #B8E986; border: #A1D761; border-width: 0 1px; border-style: solid; }
+      .screenshots.failing { border-color: #C84F5E; background-color: #E58591; }
+      .screenshot { max-height: 60px; float: left; transition: max-height 0.2s; margin: 0 4px 4px 0 }
+      .screenshot.selected { max-height: 568px; }
+      #test-suites { display: inline-block; width: 100%;margin-top:100px;}
+      #segment-bar { margin-top: 10px;margin-left: 14px;float:right;}
+      #segment-bar a:first-child { border-radius: 9px 0 0 9px; border-right: none;}
+      #segment-bar a:last-child { border-radius: 0 9px 9px 0; border-left: none;}
+      #segment-bar > a { color: #565656; border: 2px solid  #7B7B7B; width: 80px; font-weight: bold; display:inline-block;text-align:center; font-weight: normal;}
+      #segment-bar > a.selected { background-color: #979797; color: #F0F3FB;}
+      #counters { float: left;margin: 10px;text-align: right;}
+      #counters h2 { font-size: 16px; font-family: Avenir, sans-serif; font-weight: lighter; display:inline;}
+      #counters .number { font-size: 20px;}
+      #fail-count { color: #D0021B; margin-left:10px;}
+      @media (max-width: 640px) {
+        h1, #counters, #segment-bar { margin: 5px auto; text-align:center;}
+        header, #segment-bar { width: 100%; position: relative; background:none;}
+        .left, .right { float:none; margin:0;}
+        #test-suites { margin-top: 0;}
+        #counters { float:none;}
+      }
+    </style>
+    <script type="text/javascript">
+      var hide = function(element) { element.style.display = 'none';}
+      var show = function(element) { element.style.display = '';}
+      var isHidden = function(element) { return element.style.display == 'none';}
+      var isSelected = function(element) { return element.classList.contains("selected");}
+      var deselect = function(element) { return element.classList.remove("selected");}
+      var select = function(element) { return element.classList.add("selected");}
+      var toggle = function(element) { isHidden(element) ? show(element) : hide(element);};
+      var toggleTests = function(heading) { toggle(heading.parentNode.children[1]);};
+      var toggleDetails = function(detailClass) {
+        var details = document.querySelectorAll('.' + detailClass);
+        for (var i = details.length - 1; i >= 0; i--) { toggle(details[i]);};
+      };
+      var hideAll = function(collection) {
+        for (var i = collection.length - 1; i >= 0; i--) { hide(collection[i]); };
+      }
+      var showAll = function(collection) {
+        for (var i = collection.length - 1; i >= 0; i--) { show(collection[i]); };
+      }
+      var selectSegment = function(segment) {
+        if (isSelected(segment)) return;
+        var segments = document.querySelectorAll('#segment-bar > a');
+        for (var i = segments.length - 1; i >= 0; i--) { deselect(segments[i]);};
+        select(segment);
+        if (segment.id == "all-segment") {
+          showAll(document.querySelectorAll('.test-suite'));
+          showAll(document.querySelectorAll('.test'));
+        } else if (segment.id == "failing-segment") {
+          hideAll(document.querySelectorAll('.test.passing'));
+          showAll(document.querySelectorAll('.test.failing'));
+          hideAll(document.querySelectorAll('.test-suite.passing'));
+          showAll(document.querySelectorAll('.test-suite.failing'));
+        } else if (segment.id == "passing-segment") {
+          hideAll(document.querySelectorAll('.test.failing'));
+          showAll(document.querySelectorAll('.test.passing'));
+          hideAll(document.querySelectorAll('.test-suite.failing'));
+          showAll(document.querySelectorAll('.test-suite.passing'));
+        }
+      }
+      var toggleScreenshot = function(suiteName, index) {
+        var screenshot = document.getElementById("screenshot-" + suiteName + "-" + index);
+        isSelected(screenshot) ? deselect(screenshot) : select(screenshot);
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <section class="left">
+        <h1>Test Results</h1>
+      </section>
+      <section class="right">
+        <section id="counters">
+          <h2 id="test-count"><span class="number">264</span> tests</h2>
+          
+        </section>
+        <section id="segment-bar">
+          <a id="all-segment" onclick="selectSegment(this);" class="selected">All</a><a id="failing-segment" onclick="selectSegment(this);">Failing</a><a id="passing-segment" onclick="selectSegment(this);">Passing</a>
+        </section>
+      </section>
+    </header>
+    <section id="test-suites">
+      
+        
+        <section class="test-suite passing" id="DomainTests.FeatureFlagLoaderTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.FeatureFlagLoaderTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenFlagValues_WhenAppLaunching_ThenSearchEnabled');">
+                <td>
+                  
+                    <h3 class="time">0.014s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenFlagValues_WhenAppLaunching_ThenSearchEnabled</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenNoFlagValues_WhenAppLaunching_ThenSearchDisabled');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenNoFlagValues_WhenAppLaunching_ThenSearchDisabled</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.FetchImageTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.FetchImageTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenRequest_WhenFetchingImage_ThenImageSentBackToUser');">
+                <td>
+                  
+                    <h3 class="time">0.006s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenRequest_WhenFetchingImage_ThenImageSentBackToUser</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.LoginInteractorTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.LoginInteractorTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_didCollectLoginValues_createsPayload');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_didCollectLoginValues_createsPayload</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenLoginValues_WhenLoginResponse_ThenCallPresenter');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenLoginValues_WhenLoginResponse_ThenCallPresenter</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.LogoutInteractorTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.LogoutInteractorTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenLogoutFailure_WhenCalled_ThenErrorReturned');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenLogoutFailure_WhenCalled_ThenErrorReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenLogoutSuccess_WhenCalled_ThenResponseValid');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenLogoutSuccess_WhenCalled_ThenResponseValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenLogoutCalled_ThenSessionIsCleared');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenLogoutCalled_ThenSessionIsCleared</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.ProfileFollowInteractorTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.ProfileFollowInteractorTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testProfileList_callsService');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">testProfileList_callsService</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testProfilesList_whenProfilesReturn');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testProfilesList_whenProfilesReturn</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.ProfileFollowToggleInteractorTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.ProfileFollowToggleInteractorTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testWhenUserFollowsProfile_ThenCorrectRequestMade');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testWhenUserFollowsProfile_ThenCorrectRequestMade</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testWhenUserUnfollowsProfile_ThenCorrectRequestMade');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testWhenUserUnfollowsProfile_ThenCorrectRequestMade</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.ProfileInteractorTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.ProfileInteractorTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testFetchProfile_callsService');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testFetchProfile_callsService</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.ReportUserInteractorTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.ReportUserInteractorTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenCharacterCountExceeded_ThenHighlightError');">
+                <td>
+                  
+                    <h3 class="time">0.007s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCharacterCountExceeded_ThenHighlightError</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenStringWithinMaximumCharacterLimit_ThenNoError');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenStringWithinMaximumCharacterLimit_ThenNoError</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.SignUpLoaderTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.SignUpLoaderTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_loadPages_calls_getData_onService');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_loadPages_calls_getData_onService</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.ValidatorsTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.ValidatorsTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_allowsSpace_inBetween');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_allowsSpace_inBetween</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_emailValidator');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_emailValidator</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_NameValidator_justLongEnough');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_NameValidator_justLongEnough</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_NameValidator_justShortEnough');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_NameValidator_justShortEnough</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_NameValidator_noNumbers');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_NameValidator_noNumbers</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_NameValidator_tooLong');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_NameValidator_tooLong</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_NameValidator_tooShort');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_NameValidator_tooShort</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_NameValidator_withinRange_emoji');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_NameValidator_withinRange_emoji</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_nil_email');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_nil_email</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_nil_name');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_nil_name</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_nil_password');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_nil_password</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_noSpaceAtBeginning');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_noSpaceAtBeginning</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_noSpaceAtEnd');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_noSpaceAtEnd</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_PasswordValidator_CannotContain_Spaces');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_PasswordValidator_CannotContain_Spaces</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_PasswordValidator_justLongEnough');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_PasswordValidator_justLongEnough</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_PasswordValidator_justShortEnough');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_PasswordValidator_justShortEnough</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_PasswordValidator_tooLong');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_PasswordValidator_tooLong</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_PasswordValidator_tooShort');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_PasswordValidator_tooShort</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_PasswordValidator_withinRange_emoji');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_PasswordValidator_withinRange_emoji</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_Sanitizing');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_Sanitizing</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.WorkflowPagePresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.WorkflowPagePresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.005s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingEmailField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingEmailField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingFirstNameField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingFirstNameField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingGenderDropDown_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingGenderDropDown_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingIntroField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingIntroField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingLargeImagePicker_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingLargeImagePicker_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingLastNameField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingLastNameField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingLocationField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingLocationField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingPhoneField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingPhoneField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingPrivateInfoLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingPrivateInfoLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingSmallImagePicker_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingSmallImagePicker_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingWebsiteField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingWebsiteField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoadingEmailField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoadingEmailField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoadingLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoadingLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoadingPasswordField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoadingPasswordField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoadingGenderDropdown_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoadingGenderDropdown_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoadingLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoadingLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoadingNameField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoadingNameField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoadingLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoadingLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoadingTCsCheckbox_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoadingTCsCheckbox_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoadingUniSuggestions_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoadingUniSuggestions_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.WorkflowPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.WorkflowPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenData_WhenRegistering_ThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenData_WhenRegistering_ThenOutputReloads</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenData_WhenViewReady_ThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenData_WhenViewReady_ThenOutputReloads</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenError_WhenViewReady_ThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenError_WhenViewReady_ThenOutputReloads</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPages_WhenEditingProfile_ThenOutputHas1Page');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPages_WhenEditingProfile_ThenOutputHas1Page</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenPages_WhenRegistering_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPages_WhenRegistering_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPages_WhenViewingProfile_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPages_WhenViewingProfile_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenViewReady_WhenEditingProfile_ThenOutputHas1Page');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenViewReady_WhenEditingProfile_ThenOutputHas1Page</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenViewReady_WhenRegistering_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenViewReady_WhenRegistering_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenViewReady_WhenViewingProfile_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenViewReady_WhenViewingProfile_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DomainTests.WorkflowTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DomainTests.WorkflowTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenCheckboxTicked_WhenValidatingRequired_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenCheckboxTicked_WhenValidatingRequired_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenCheckboxUnTicked_WhenValidatingNotRequired_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenCheckboxUnTicked_WhenValidatingNotRequired_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenCheckboxUnTicked_WhenValidatingRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenCheckboxUnTicked_WhenValidatingRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenDropdownEmpty_WhenValidatingNotRequired_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenDropdownEmpty_WhenValidatingNotRequired_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenDropdownFilled_WhenValidatingRequired_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenDropdownFilled_WhenValidatingRequired_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenDropdownInappropriatelyFilled_WhenValidatingNotRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenDropdownInappropriatelyFilled_WhenValidatingNotRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenDropdownInappropriatelyFilled_WhenValidatingRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenDropdownInappropriatelyFilled_WhenValidatingRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldValueEmpty_WhenValidatingNonRequired_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldValueEmpty_WhenValidatingNonRequired_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenTextFieldValueLong_WhenValidatingRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldValueLong_WhenValidatingRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldValueNonAlphabetic_WhenValidatingRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldValueNonAlphabetic_WhenValidatingRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenTextFieldValueReallyLong_WhenValidatingNonRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldValueReallyLong_WhenValidatingNonRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldValueShort_WhenValidatingNonRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldValueShort_WhenValidatingNonRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenTextFieldValueShort_WhenValidatingRequired_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldValueShort_WhenValidatingRequired_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldWithIncorrectValue_WhenValidatingPhone_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithIncorrectValue_WhenValidatingPhone_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenTextFieldWithNonEmailValue_WhenValidatingEmail_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithNonEmailValue_WhenValidatingEmail_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldWithNumberValues_WhenValidatingAlphanumeric_ThenReturnsInvalid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithNumberValues_WhenValidatingAlphanumeric_ThenReturnsInvalid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenTextFieldWithValue_WhenValidatingAlphanumeric_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithValue_WhenValidatingAlphanumeric_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldWithValue_WhenValidatingEmail_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithValue_WhenValidatingEmail_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenTextFieldWithValue_WhenValidatingPhone_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithValue_WhenValidatingPhone_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTextFieldWithValue_WhenValidatingWebsite_ThenReturnsValid');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTextFieldWithValue_WhenValidatingWebsite_ThenReturnsValid</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DataTests.BundleLoaderDataServiceTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DataTests.BundleLoaderDataServiceTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenDataInvalid_WhenLoadingData_ThenFoundError');">
+                <td>
+                  
+                    <h3 class="time">0.008s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenDataInvalid_WhenLoadingData_ThenFoundError</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenDataValid_WhenLoadingData_ThenReturnsData');">
+                <td>
+                  
+                    <h3 class="time">0.004s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenDataValid_WhenLoadingData_ThenReturnsData</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenFileNotFound_WhenLoadingData_ThenFoundError');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenFileNotFound_WhenLoadingData_ThenFoundError</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DataTests.DataPersistenceTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DataTests.DataPersistenceTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenInitialResult_WhenFetching_ThenEntitiesReturned');">
+                <td>
+                  
+                    <h3 class="time">0.295s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenInitialResult_WhenFetching_ThenEntitiesReturned</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DataTests.FeatureFlagParserTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DataTests.FeatureFlagParserTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenData_WhenDecoding_ThenFeatureFlagsCreated');">
+                <td>
+                  
+                    <h3 class="time">0.006s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenData_WhenDecoding_ThenFeatureFlagsCreated</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DataTests.NavigationConfigParserTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DataTests.NavigationConfigParserTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenData_WhenDecoding_ThenNavConfigCreated');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenData_WhenDecoding_ThenNavConfigCreated</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DataTests.NetworkDataServiceTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DataTests.NetworkDataServiceTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_givenDeleteWithParameters_ThenParametersProcessed');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenDeleteWithParameters_ThenParametersProcessed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenGettingData_AndPersistenceSet_WhenSuccesful_ThenResultReturned');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenGettingData_AndPersistenceSet_WhenSuccesful_ThenResultReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenGettingData_SuccessWithDifferentData_ThenErrorReturned');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenGettingData_SuccessWithDifferentData_ThenErrorReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenGettingData_WhenSuccesful_ThenResultReturned');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenGettingData_WhenSuccesful_ThenResultReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenGettingData_WhenWrongData_ThenErrorReturned');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenGettingData_WhenWrongData_ThenErrorReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenNoData_WhenGettingData_ThenErrorReturned');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenNoData_WhenGettingData_ThenErrorReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenParsingError_WhenGettingData_ThenErrorReturned');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenParsingError_WhenGettingData_ThenErrorReturned</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_givenPatchWithParameters_ThenParametersProcessed');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenPatchWithParameters_ThenParametersProcessed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_givenPostWithParameters_ThenParametersProcessed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenPostWithParameters_ThenParametersProcessed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_givenPutWithParameters_ThenParametersProcessed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenPutWithParameters_ThenParametersProcessed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="DataTests.SignUpConfigParserTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">DataTests.SignUpConfigParserTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenData_WhenDecoding_ThenPagesAreCreated');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenData_WhenDecoding_ThenPagesAreCreated</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PresentationTests.AppPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PresentationTests.AppPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenAppStarting_WhenAppLoaded_ThenModulesPreseted');">
+                <td>
+                  
+                    <h3 class="time">0.006s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenAppStarting_WhenAppLoaded_ThenModulesPreseted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenDeepLink_AndTokenPresent_WhenAppLoaded_ThenLinkLoaded');">
+                <td>
+                  
+                    <h3 class="time">0.011s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenDeepLink_AndTokenPresent_WhenAppLoaded_ThenLinkLoaded</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenSignupRequired_AndTokenPresent_WhenAppLoaded_ThenModulesPresented');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenSignupRequired_AndTokenPresent_WhenAppLoaded_ThenModulesPresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenSignupRequired_WhenAppLoaded_ThenModulesPresented');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenSignupRequired_WhenAppLoaded_ThenModulesPresented</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PresentationTests.WorkflowPagePresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PresentationTests.WorkflowPagePresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.006s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingEmailField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingEmailField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingFirstNameField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingFirstNameField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingGenderDropDown_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingGenderDropDown_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingIntroField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingIntroField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingLargeImagePicker_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingLargeImagePicker_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingLastNameField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingLastNameField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingLocationField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingLocationField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingPhoneField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingPhoneField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingPrivateInfoLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingPrivateInfoLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingSmallImagePicker_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingSmallImagePicker_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileEditPage_WhenLoadingWebsiteField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileEditPage_WhenLoadingWebsiteField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoadingEmailField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoadingEmailField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoadingLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoadingLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter0_WhenLoadingPasswordField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter0_WhenLoadingPasswordField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoadingGenderDropdown_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoadingGenderDropdown_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoadingLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoadingLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter1_WhenLoadingNameField_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter1_WhenLoadingNameField_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoading_HasControls');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoading_HasControls</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoadingLabel_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoadingLabel_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoadingTCsCheckbox_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoadingTCsCheckbox_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenRegistrationPagePresenter2_WhenLoadingUniSuggestions_PresenterConfiguresIt');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenRegistrationPagePresenter2_WhenLoadingUniSuggestions_PresenterConfiguresIt</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PresentationTests.WorkflowPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PresentationTests.WorkflowPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenData_WhenRegistering_ThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenData_WhenRegistering_ThenOutputReloads</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenData_WhenViewReady_ThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenData_WhenViewReady_ThenOutputReloads</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenError_WhenViewReady_ThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenError_WhenViewReady_ThenOutputReloads</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPages_WhenEditingProfile_ThenOutputHas1Page');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPages_WhenEditingProfile_ThenOutputHas1Page</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenPages_WhenRegistering_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPages_WhenRegistering_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPages_WhenViewingProfile_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPages_WhenViewingProfile_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenViewReady_WhenEditingProfile_ThenOutputHas1Page');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenViewReady_WhenEditingProfile_ThenOutputHas1Page</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenViewReady_WhenRegistering_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenViewReady_WhenRegistering_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenViewReady_WhenViewingProfile_ThenOutputHas3Pages');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenViewReady_WhenViewingProfile_ThenOutputHas3Pages</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="IosCoreTests.AppRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">IosCoreTests.AppRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenAppLoaded_WhenSetupModules_ThenTabsLaunched');">
+                <td>
+                  
+                    <h3 class="time">0.020s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenAppLoaded_WhenSetupModules_ThenTabsLaunched</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenAppRequiresWelcom_ThenWelcomeStarted');">
+                <td>
+                  
+                    <h3 class="time">0.008s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenAppRequiresWelcom_ThenWelcomeStarted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenWindow_WhenStartingApp_ThenTabsLaunched');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenWindow_WhenStartingApp_ThenTabsLaunched</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="IosCoreTests.CollajeImageContentEngineTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">IosCoreTests.CollajeImageContentEngineTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_1photo_Landscape');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_1photo_Landscape</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_1photo_Portrait');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_1photo_Portrait</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_2photos_1stLandscape_2Lines1photoEach');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_2photos_1stLandscape_2Lines1photoEach</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_2photos_1stLandscape_2Lines1photoEach_2ndPortrait');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_2photos_1stLandscape_2Lines1photoEach_2ndPortrait</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_2photos_1stPortrait_1Line2photos');">
+                <td>
+                  
+                    <h3 class="time">0.004s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_2photos_1stPortrait_1Line2photos</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Landscape');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Landscape</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Portrait');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Portrait</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_3photos_1stPortrait_2Lines_1photoOnFirst_2photosOnSecond');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_3photos_1stPortrait_2Lines_1photoOnFirst_2photosOnSecond</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond_2ndlineLandscape');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond_2ndlineLandscape</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond_2ndlineLandscape');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond_2ndlineLandscape</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_ImageAtIndex_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Landscape');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_ImageAtIndex_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Landscape</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_ImageAtIndex_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_ImageAtIndex_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_ImageAtIndex_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_ImageAtIndex_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testImageAtIndex1');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testImageAtIndex1</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testImageAtIndex2_When1Section');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testImageAtIndex2_When1Section</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testImageAtIndex2_When2Sections');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testImageAtIndex2_When2Sections</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="IosCoreTests.ConfigurationTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">IosCoreTests.ConfigurationTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenDeepLinking_DeepLinkingInvalidBeforeConfig');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenDeepLinking_DeepLinkingInvalidBeforeConfig</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenDeepLinking_ThenConfigsLoadedBeforeDeepLinking');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenDeepLinking_ThenConfigsLoadedBeforeDeepLinking</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenStartingApp_ThenConfigsLoaded_AndFinishedSetup');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenStartingApp_ThenConfigsLoaded_AndFinishedSetup</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.LoginPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.LoginPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_givenDidLogin_whenFailure_thenErrorIsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.011s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenDidLogin_whenFailure_thenErrorIsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_givenDidLogin_whenSuccess_thenSuccessLoginSuccessDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenDidLogin_whenSuccess_thenSuccessLoginSuccessDisplayed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.LogoutPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.LogoutPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenSessionPresent_WhenDidPressLogout_ThenUserLoggedOut');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenSessionPresent_WhenDidPressLogout_ThenUserLoggedOut</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenDidPressLogout_ThenUserLoggedOut');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenDidPressLogout_ThenUserLoggedOut</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.LogoutRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.LogoutRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testRouter_WhenCallingStart_HostIsPopulatedWithLogoutButton');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testRouter_WhenCallingStart_HostIsPopulatedWithLogoutButton</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.ProfileFollowersPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.ProfileFollowersPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenFollowedBy_WhenViewReady_ProfileListFetched');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenFollowedBy_WhenViewReady_ProfileListFetched</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenFollowing_WhenViewReady_ProfileListFetched');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenFollowing_WhenViewReady_ProfileListFetched</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenFollowTapped_ThenRefreshed');">
+                <td>
+                  
+                    <h3 class="time">0.005s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenFollowTapped_ThenRefreshed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenUnfollowTapped_ThenRefreshed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenUnfollowTapped_ThenRefreshed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenViewReloading_ThenDataProvided');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenViewReloading_ThenDataProvided</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenViewReloading_ThenDataProvidedLast');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenViewReloading_ThenDataProvidedLast</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.ProfilePresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.ProfilePresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_givenFetchReturns_whenCoverImageAvailable_thenImageIsDownloaded');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenFetchReturns_whenCoverImageAvailable_thenImageIsDownloaded</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_givenFetchReturns_whenFirstNameAvailable_ThenViewIsUpdated');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenFetchReturns_whenFirstNameAvailable_ThenViewIsUpdated</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenFetchReturns_WhenProfilePictureIsAvailable_ProfilePictureIsDownloaded');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenFetchReturns_WhenProfilePictureIsAvailable_ProfilePictureIsDownloaded</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_givenProfileIsFetched_whenCoverImageIsNil_thenPlaceholderIsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenProfileIsFetched_whenCoverImageIsNil_thenPlaceholderIsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenProfileIsFetched_whenCoverImageIsPresent_thenCoverImageIsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileIsFetched_whenCoverImageIsPresent_thenCoverImageIsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileIsFetched_WhenProfilePictureIsNil_ThenDisplayPlaceholder');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileIsFetched_WhenProfilePictureIsNil_ThenDisplayPlaceholder</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_givenViewReady_whenCalled_profileIsFetched');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenViewReady_whenCalled_profileIsFetched</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenEditProfileTapped_EditProfileRouted');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenEditProfileTapped_EditProfileRouted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenFollowToggled_ThenViewReloaded');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenFollowToggled_ThenViewReloaded</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testRouteEditProfile');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testRouteEditProfile</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.ProfileRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.ProfileRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenEditProfileTapped_ThenEditProfileIsPresented');">
+                <td>
+                  
+                    <h3 class="time">0.034s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenEditProfileTapped_ThenEditProfileIsPresented</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.ReportUserPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.ReportUserPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenReportingUser_GivenInvalidDataSend_ShowServiceError');">
+                <td>
+                  
+                    <h3 class="time">0.005s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenReportingUser_GivenInvalidDataSend_ShowServiceError</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenReportingUser_GivenReportStringExceedsMaximumAllowedCharacter_ThenShowErrorAlert');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenReportingUser_GivenReportStringExceedsMaximumAllowedCharacter_ThenShowErrorAlert</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenReportingUser_GivenSuccesfullReport_ThenCloseReporting');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenReportingUser_GivenSuccesfullReport_ThenCloseReporting</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.ReportUserRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.ReportUserRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenUserIsFinishedReporting_ThenDismissTheReportUserView');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenUserIsFinishedReporting_ThenDismissTheReportUserView</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenUserWantsToReportUser_ThenPresentReportView');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenUserWantsToReportUser_ThenPresentReportView</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.SignUpPagePresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.SignUpPagePresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_performedSelectionOn_focusOnItem');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_performedSelectionOn_focusOnItem</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenFieldInValid_WhenValidating_ThenPresenterFinishes');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenFieldInValid_WhenValidating_ThenPresenterFinishes</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenFieldValid_WhenValidatingOnlineReturnsInValid_ThenPresenterFinishes');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenFieldValid_WhenValidatingOnlineReturnsInValid_ThenPresenterFinishes</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenFieldValid_WhenValidatingOnlineReturnsValid_ThenPresenterFinishes');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenFieldValid_WhenValidatingOnlineReturnsValid_ThenPresenterFinishes</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenPage_WhenRealoading_ThenAllItemsOnPageDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenPage_WhenRealoading_ThenAllItemsOnPageDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenPage_WhenRealoading_ThenDifferentItemsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenPage_WhenRealoading_ThenDifferentItemsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenPage_WhenRealoading_ThenLabelConfigured');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenPage_WhenRealoading_ThenLabelConfigured</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testWhenViewReadyThenOutputReloads');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testWhenViewReadyThenOutputReloads</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.SignUpPageViewControllerTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.SignUpPageViewControllerTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testDidSelectRowAtIndexPath_callsOnPresenter');">
+                <td>
+                  
+                    <h3 class="time">0.005s</h3>
+                  
+                </td>
+                <td><h3 class="title">testDidSelectRowAtIndexPath_callsOnPresenter</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenButtonField_WhenLoadingCell_ThenCellHeightIs100');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenButtonField_WhenLoadingCell_ThenCellHeightIs100</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenButtonField_WhenLoadingCell_ThenCellIsPopulated');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenButtonField_WhenLoadingCell_ThenCellIsPopulated</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenInputField_WhenLoadingCell_ThenCellHeightIs100');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenInputField_WhenLoadingCell_ThenCellHeightIs100</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenInputField_WhenLoadingCell_ThenCellIsPopulated');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenInputField_WhenLoadingCell_ThenCellIsPopulated</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenInvalidInput_WhenHighlightingError_ThenCellIsHighlighted');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenInvalidInput_WhenHighlightingError_ThenCellIsHighlighted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenLabel_WhenLoadingCell_ThenCellHeightIs60');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenLabel_WhenLoadingCell_ThenCellHeightIs60</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenOtherField_WhenLoadingCell_ThenCellHeightIs60');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenOtherField_WhenLoadingCell_ThenCellHeightIs60</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenPages_WhenViewLoads_ThenPagePopulated');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenPages_WhenViewLoads_ThenPagePopulated</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenTitle_WhenLoadingCell_ThenCellHeightIs80');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenTitle_WhenLoadingCell_ThenCellHeightIs80</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.SignUpPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.SignUpPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenViewConfigured_WhenViewReady_ThenCallUpdateTitle');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenViewConfigured_WhenViewReady_ThenCallUpdateTitle</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testGivenViewIsConfigured_WhenViewReady_ThenPagesAreLoaded');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenViewIsConfigured_WhenViewReady_ThenPagesAreLoaded</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ProfileTests.SignUpRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ProfileTests.SignUpRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_givenRouterIsConfigured_whenUpdatePages_thenPagesAppear');">
+                <td>
+                  
+                    <h3 class="time">0.004s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_givenRouterIsConfigured_whenUpdatePages_thenPagesAppear</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ChannelsTests.ChannelListPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ChannelsTests.ChannelListPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenChannelResponseContainsChannels_WhenViewLoads_ThenChannelsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.009s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenChannelResponseContainsChannels_WhenViewLoads_ThenChannelsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenChannelsFetched_WhenTapped_ThenChannelShown');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenChannelsFetched_WhenTapped_ThenChannelShown</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenResponseEmpty_WhenViewLoads_ThenErrorDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenResponseEmpty_WhenViewLoads_ThenErrorDisplayed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ChannelsTests.ChannelsPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ChannelsTests.ChannelsPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenUserIsMember_WhenLoading_ThenSegmentsHasChatWallMembers');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenUserIsMember_WhenLoading_ThenSegmentsHasChatWallMembers</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenUserIsNotMember_WhenLoading_ThenSegmentsHasMessage');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenUserIsNotMember_WhenLoading_ThenSegmentsHasMessage</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="ChannelsTests.ChannelsTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">ChannelsTests.ChannelsTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testExample');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">testExample</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('testPerformanceExample');">
+                <td>
+                  
+                    <h3 class="time">0.291s</h3>
+                  
+                </td>
+                <td><h3 class="title">testPerformanceExample</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.CommentsListPresenterTest">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.CommentsListPresenterTest</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_Given0CommentInResponse_WhenViewLoads_ThenCellDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.020s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_Given0CommentInResponse_WhenViewLoads_ThenCellDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenCommenting_WhenViewLoads_ThenInputActionConfigured');">
+                <td>
+                  
+                    <h3 class="time">0.022s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCommenting_WhenViewLoads_ThenInputActionConfigured</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenCommenting_WhenViewLoads_ThenInputFinishedConfigured');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCommenting_WhenViewLoads_ThenInputFinishedConfigured</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenCommentsFetched_WhenTappedActionOptionDelete_ThenCommentDeleted');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCommentsFetched_WhenTappedActionOptionDelete_ThenCommentDeleted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenCommentsResponseContains2Comments_WhenViewLoads_ThenCommentsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCommentsResponseContains2Comments_WhenViewLoads_ThenCommentsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenCommentsWithReplies_WhenViewMoreReplies_ThenRepliesDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCommentsWithReplies_WhenViewMoreReplies_ThenRepliesDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenCreatingNewComment_WhenTappedActionOptionDelete_ThenCommentDeleted');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCreatingNewComment_WhenTappedActionOptionDelete_ThenCommentDeleted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenMakeing2ndReplyToFirstComment_WhenTappedActionOptionDelete_ThenCommentDeleted');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenMakeing2ndReplyToFirstComment_WhenTappedActionOptionDelete_ThenCommentDeleted</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenReplying_WhenViewLoads_ThenInputFinishedConfigured');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenReplying_WhenViewLoads_ThenInputFinishedConfigured</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenReplying_WhenViewLoads_ThenViewInputConfigured');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenReplying_WhenViewLoads_ThenViewInputConfigured</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenReplyingon1stReplyOnFirstComment_WhenTappedActionOptionDelete_ThenCommentDeleted');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenReplyingon1stReplyOnFirstComment_WhenTappedActionOptionDelete_ThenCommentDeleted</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.CommentsListViewControllerTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.CommentsListViewControllerTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenViewIsLoaded_TableViewDelegateEqualsTableViewDataSource');">
+                <td>
+                  
+                    <h3 class="time">0.026s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenViewIsLoaded_TableViewDelegateEqualsTableViewDataSource</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenViewIsLoaded_TableViewNotNil');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenViewIsLoaded_TableViewNotNil</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('testGivenViewLoading_WhenCellDequeued_PresenterConfiguresCell');">
+                <td>
+                  
+                    <h3 class="time">0.007s</h3>
+                  
+                </td>
+                <td><h3 class="title">testGivenViewLoading_WhenCellDequeued_PresenterConfiguresCell</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.CreatePostPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.CreatePostPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenCreatePost_WhenPasteLink_GetLinkPreview');">
+                <td>
+                  
+                    <h3 class="time">0.006s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCreatePost_WhenPasteLink_GetLinkPreview</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenCreatePost_WnenPostTapped_CreatePost');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenCreatePost_WnenPostTapped_CreatePost</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenEditPost_WnenPostTapped_CreatePost');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenEditPost_WnenPostTapped_CreatePost</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.CreatePostRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.CreatePostRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenSharePostToTapped_ThenShareToPresented');">
+                <td>
+                  
+                    <h3 class="time">0.017s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenSharePostToTapped_ThenShareToPresented</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.PostListPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.PostListPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenNewPostsCell_WhenTappedNewPost_ThenRounter_RoutingCreatePost');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenNewPostsCell_WhenTappedNewPost_ThenRounter_RoutingCreatePost</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPostResponseContainsPosts_WhenViewLoads_ThenPostsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPostResponseContainsPosts_WhenViewLoads_ThenPostsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenPostsFetched_WhenTapped_ThenPostShown');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPostsFetched_WhenTapped_ThenPostShown</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPostsFetched_WhenTappedActionOptionDelete_ThenPostDelete');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPostsFetched_WhenTappedActionOptionDelete_ThenPostDelete</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenPostsFetched_WhenTappedComments_ThenPostPassed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPostsFetched_WhenTappedComments_ThenPostPassed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenPostsFetched_WhenTappedCommentsAuthor_ThenPostPassed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPostsFetched_WhenTappedCommentsAuthor_ThenPostPassed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenPostsFetched_WhenTappedReport_ThenPostPassed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenPostsFetched_WhenTappedReport_ThenPostPassed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenResponseEmpty_WhenViewLoads_ThenErrorDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenResponseEmpty_WhenViewLoads_ThenErrorDisplayed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.PostListRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.PostListRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenNewPostCellTapped_ThenNewPostPresented');">
+                <td>
+                  
+                    <h3 class="time">0.004s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenNewPostCellTapped_ThenNewPostPresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenPostAuthorTapped_ThenProfilePresented');">
+                <td>
+                  
+                    <h3 class="time">0.005s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenPostAuthorTapped_ThenProfilePresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenPostContentTapped_ThenDetailPostPresented');">
+                <td>
+                  
+                    <h3 class="time">0.004s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenPostContentTapped_ThenDetailPostPresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenPostEditOptionsTapped_ThenEditPostPresented');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenPostEditOptionsTapped_ThenEditPostPresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenReportPostOptionsTapped_ThenReportPostPresented');">
+                <td>
+                  
+                    <h3 class="time">0.003s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenReportPostOptionsTapped_ThenReportPostPresented</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.PostsRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.PostsRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenPostAuthorTapped_ThenProfilePresented');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenPostAuthorTapped_ThenProfilePresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenPostEditOptionsTapped_ThenEditPostPresented');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenPostEditOptionsTapped_ThenEditPostPresented</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenReportPostOptionsTapped_ThenReportPostPresented');">
+                <td>
+                  
+                    <h3 class="time">0.002s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenReportPostOptionsTapped_ThenReportPostPresented</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.ReportPostPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.ReportPostPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenReportPost_WhenReportReasonSelected_ThenReportPost');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenReportPost_WhenReportReasonSelected_ThenReportPost</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenReportReasonsResponseContainsResponseReasons_WhenViewLoads_ThenReportReasonsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenReportReasonsResponseContainsResponseReasons_WhenViewLoads_ThenReportReasonsDisplayed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.ReportPostRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.ReportPostRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenCancelButtonTapped_ThanReportPostDismissed');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenCancelButtonTapped_ThanReportPostDismissed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenSendButtonTapped_ThanReportPostDismissed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenSendButtonTapped_ThanReportPostDismissed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.SharePostToPresenterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.SharePostToPresenterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_GivenChannelResponseContainsChannels_WhenViewLoads_ThenChannelsDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenChannelResponseContainsChannels_WhenViewLoads_ThenChannelsDisplayed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_GivenProfileResponseContainsProfile_WhenViewLoads_ThenProfilesDisplayed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_GivenProfileResponseContainsProfile_WhenViewLoads_ThenProfilesDisplayed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+        
+        <section class="test-suite passing" id="PostsTests.SharePostToRouterTests">
+          <section class="heading" onclick="toggleTests(this);">
+            <h3 class="title">PostsTests.SharePostToRouterTests</h3>
+          </section>
+          <section class="tests">
+            <table>
+            
+              
+              <tr class="test passing "  onclick="toggleDetails('test_WhenCancelButtonTapped_ThanSharePostToDismissed');">
+                <td>
+                  
+                    <h3 class="time">0.001s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenCancelButtonTapped_ThanSharePostToDismissed</h3></td>
+              </tr>
+              
+            
+              
+              <tr class="test passing odd"  onclick="toggleDetails('test_WhenDoneButtonTapped_ThanSharePostToDismissed');">
+                <td>
+                  
+                    <h3 class="time">0.000s</h3>
+                  
+                </td>
+                <td><h3 class="title">test_WhenDoneButtonTapped_ThanSharePostToDismissed</h3></td>
+              </tr>
+              
+            
+            </table>
+          </section>
+        </section>
+      
+    </section>
+    <footer>Report generated with <a href="https://github.com/supermarin/xcpretty">xcpretty</a></footer>
+  </body>
+</html>

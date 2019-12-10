@@ -1,0 +1,222 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+	desc "Description of what the lane does"
+
+	desc "Standard Test lane"
+
+	workspace = "DemoApp.xcworkspace"
+	scheme = "DemoApp"
+    demoScheme = "DemoAppFabric"
+    proj = "DemoApp/DemoApp.xcodeproj"
+    
+    plist = "DemoApp/Info.plist"
+    fullPlistPath = "DemoApp/"
+    
+    extension_identifier = ".NotificationServiceExtension"
+    extension_plist = "NotificationServiceExtension/Info.plist"
+    extension_fullPlistPath = "DemoApp/"
+    
+#MARK: - Privates
+#MARK: make_notes()
+    def make_notes
+        branch = git_branch
+        changelog = branch + "\n" + "..."
+        end
+        notes = sh("git log --cherry-pick --left-only HEAD...develop --pretty=format:'%s, %ar'")
+        changelog = changelog + "\n" + notes
+        puts changelog
+        changelog
+    end
+
+#MARK: - Prepare for upload
+
+    lane :prepare_for_upload do |options|
+        if options[:bundle_id].nil?
+           puts("bundle_id not set")
+           exit(1)
+        end
+        if options[:build_number].nil?
+           puts("build_number not set")
+           exit(1)
+        end
+        if options[:app_name].nil?
+           puts("app_name not set")
+           exit(1)
+        end
+        if options[:user].nil?
+           puts("app store user not set")
+           exit(1)
+        end
+#       modify app bundle id in xcodeproj
+        update_app_identifier(xcodeproj: proj, plist_path: plist, app_identifier: options[:bundle_id])
+#       modify app build number
+        set_info_plist_value(path: fullPlistPath + plist, key: "CFBundleVersion", value: options[:build_number])
+#       modify app name
+        set_info_plist_value(path: fullPlistPath + plist, key: "CFBundleName", value: options[:app_name])
+#       modify extension bundle id in xcodeproj
+        notification_identifier = options[:bundle_id] + extension_identifier
+        update_app_identifier(xcodeproj: proj, plist_path: extension_plist, app_identifier: notification_identifier)
+#       modify extension build number
+        set_info_plist_value(path: extension_fullPlistPath + extension_plist, key: "CFBundleVersion", value: options[:build_number])
+        
+    end
+
+#MARK: - Execute tests
+	
+	lane :tests do
+        swiftlint(mode: :lint,
+                  output_file: "fastlane/swiftlint_output/swiftlint.result.json",
+                  config_file: ".swiftlint.yml",
+                  ignore_exit_status: true)
+		run_tests(workspace: workspace,
+			devices: ["iPhone 8"],
+			scheme: scheme)
+		run_tests(workspace: workspace,
+			devices: ["iPhone 8"],
+			scheme: "UITests")
+	end
+
+#MARK: - Testflight / App Store upload
+
+    lane :build_app_for_testflight do |options|
+        if options[:bundle_id].nil?
+          puts("bundle_id not set")
+          exit(1)
+        end
+        if options[:profile1].nil?
+          puts("provisioning profile for app was not set")
+          exit(1)
+        end
+        if options[:profile2].nil?
+          puts("provisioning profile for signing notification service was not set")
+          exit(1)
+        end
+        
+        puts(options[:bundle_id] + " => " + options[:profile1])
+        puts(options[:bundle_id] + extension_identifier + " => " + options[:profile2])
+        
+        match(type: "appstore", app_identifier: options[:bundle_id])
+
+        build_ios_app(
+            scheme: scheme,
+            workspace: workspace,
+            configuration: "Release",
+            export_options: {
+                method: "app-store",
+                compileBitcode: true,
+                uploadBitcode: true,
+                signingStyle: "manual",
+                provisioningProfiles: {
+                     options[:bundle_id] => options[:profile1],
+                     options[:bundle_id]+extension_identifier => options[:profile2]
+                }
+            }
+        )
+       
+    end
+
+	lane :test_flight_manual do |options|
+        if options[:user].nil?
+			puts("itunesconnect user email not set")
+			exit(1)
+		end
+        if ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"].nil?
+            puts("FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD not set")
+            exit(1)
+        end
+        
+                  
+        upload_to_testflight(skip_submission: true,
+                             username: options[:user],
+                             notify_external_testers: false
+                             )
+	end
+
+#MARK: - Fabric upload
+	desc "Upload to Crashlytics Testers"
+	lane :fabric do
+
+		make_notes
+		build_app(scheme: demoScheme,
+				workspace: workspace,
+				export_method: "ad-hoc",
+                configuration: "Demo",
+				include_bitcode: false)
+        make_notes
+		crashlytics(
+			api_token: "d752e0212977246dc4f0427ffbfe8bc75471ded2",
+			build_secret: "3464ef07284e0d7d03e488a70e8b0371ab67488900494ca1cb3a6868ddf6e594",
+			notes: make_notes,
+			groups: "ios-testers",
+			notifications: true
+			)
+	end
+
+#MARK: - Versioning markers
+	lane :bumpPatch do
+		version = increment_version_number(
+			xcodeproj: proj,
+			bump_type: "patch"
+			)
+		note = "Version Bump to " + version
+		commit_version_bump(
+			message: note,
+			xcodeproj: proj
+			)
+	end
+
+	lane :bumpMinor do
+		version = increment_version_number(
+			xcodeproj: proj,
+			bump_type: "minor"
+			)
+
+		note = "Version Bump to " + version
+		commit_version_bump(
+			message: note,
+			xcodeproj: proj
+			)
+	end
+
+	lane :bumpMajor do
+		version = increment_version_number(
+			xcodeproj: proj,
+			bump_type: "major"
+			)
+
+		note = "Version Bump to " + version
+		commit_version_bump(
+			message: note,
+			xcodeproj: proj
+			)
+	end
+
+	lane :bumpBuildNumber do
+		version = increment_build_number(
+			xcodeproj: proj,
+			build_number: "1"
+			)
+
+		commit_version_bump(
+			message: "Version Bump to " + version,
+			xcodeproj: proj
+			)
+	end
+end
+

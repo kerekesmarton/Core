@@ -1,0 +1,9 @@
+"sign_up_title_one" = "Please specify email and Password";
+"sign_up_hint_email" = "Email";
+"sign_up_hint_password" = "Password";
+"sign_up_title_two" = "Your Name";
+"sign_up_hint_first_name" = "First name";
+"sign_up_hint_last_name" = "Last name";
+"sign_up_title_three" = "More Info";
+"sign_up_hint_title_one" = "Title one (optional)";
+"sign_up_hint_title_two" = "Title two (optional)";

@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='PostsTests.xctest' tests='264' failures='0'>
+  <testsuite name='DomainTests.FeatureFlagLoaderTests' tests='2' failures='0'>
+    <testcase classname='DomainTests.FeatureFlagLoaderTests' name='test_GivenFlagValues_WhenAppLaunching_ThenSearchEnabled' time='0.014'/>
+    <testcase classname='DomainTests.FeatureFlagLoaderTests' name='test_GivenNoFlagValues_WhenAppLaunching_ThenSearchDisabled' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.FetchImageTests' tests='1' failures='0'>
+    <testcase classname='DomainTests.FetchImageTests' name='testGivenRequest_WhenFetchingImage_ThenImageSentBackToUser' time='0.006'/>
+  </testsuite>
+  <testsuite name='DomainTests.LoginInteractorTests' tests='2' failures='0'>
+    <testcase classname='DomainTests.LoginInteractorTests' name='test_didCollectLoginValues_createsPayload' time='0.001'/>
+    <testcase classname='DomainTests.LoginInteractorTests' name='test_GivenLoginValues_WhenLoginResponse_ThenCallPresenter' time='0.002'/>
+  </testsuite>
+  <testsuite name='DomainTests.LogoutInteractorTests' tests='3' failures='0'>
+    <testcase classname='DomainTests.LogoutInteractorTests' name='test_GivenLogoutFailure_WhenCalled_ThenErrorReturned' time='0.001'/>
+    <testcase classname='DomainTests.LogoutInteractorTests' name='test_GivenLogoutSuccess_WhenCalled_ThenResponseValid' time='0.001'/>
+    <testcase classname='DomainTests.LogoutInteractorTests' name='test_WhenLogoutCalled_ThenSessionIsCleared' time='0.000'/>
+  </testsuite>
+  <testsuite name='DomainTests.ProfileFollowInteractorTests' tests='2' failures='0'>
+    <testcase classname='DomainTests.ProfileFollowInteractorTests' name='testProfileList_callsService' time='0.002'/>
+    <testcase classname='DomainTests.ProfileFollowInteractorTests' name='testProfilesList_whenProfilesReturn' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.ProfileFollowToggleInteractorTests' tests='2' failures='0'>
+    <testcase classname='DomainTests.ProfileFollowToggleInteractorTests' name='testWhenUserFollowsProfile_ThenCorrectRequestMade' time='0.001'/>
+    <testcase classname='DomainTests.ProfileFollowToggleInteractorTests' name='testWhenUserUnfollowsProfile_ThenCorrectRequestMade' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.ProfileInteractorTests' tests='1' failures='0'>
+    <testcase classname='DomainTests.ProfileInteractorTests' name='testFetchProfile_callsService' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.ReportUserInteractorTests' tests='2' failures='0'>
+    <testcase classname='DomainTests.ReportUserInteractorTests' name='test_GivenCharacterCountExceeded_ThenHighlightError' time='0.007'/>
+    <testcase classname='DomainTests.ReportUserInteractorTests' name='test_GivenStringWithinMaximumCharacterLimit_ThenNoError' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.SignUpLoaderTests' tests='1' failures='0'>
+    <testcase classname='DomainTests.SignUpLoaderTests' name='test_loadPages_calls_getData_onService' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.ValidatorsTests' tests='20' failures='0'>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_allowsSpace_inBetween' time='0.003'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_emailValidator' time='0.003'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_NameValidator_justLongEnough' time='0.001'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_NameValidator_justShortEnough' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_NameValidator_noNumbers' time='0.001'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_NameValidator_tooLong' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_NameValidator_tooShort' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_NameValidator_withinRange_emoji' time='0.001'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_nil_email' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_nil_name' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_nil_password' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_noSpaceAtBeginning' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_noSpaceAtEnd' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_PasswordValidator_CannotContain_Spaces' time='0.001'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_PasswordValidator_justLongEnough' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_PasswordValidator_justShortEnough' time='0.001'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_PasswordValidator_tooLong' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_PasswordValidator_tooShort' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_PasswordValidator_withinRange_emoji' time='0.000'/>
+    <testcase classname='DomainTests.ValidatorsTests' name='test_Sanitizing' time='0.000'/>
+  </testsuite>
+  <testsuite name='DomainTests.WorkflowPagePresenterTests' tests='24' failures='0'>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoading_HasControls' time='0.005'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingEmailField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingFirstNameField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingGenderDropDown_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingIntroField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingLargeImagePicker_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingLastNameField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingLocationField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingPhoneField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingPrivateInfoLabel_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingSmallImagePicker_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingWebsiteField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoading_HasControls' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoadingEmailField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoadingLabel_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoadingPasswordField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoading_HasControls' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoadingGenderDropdown_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoadingLabel_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoadingNameField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoading_HasControls' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoadingLabel_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoadingTCsCheckbox_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoadingUniSuggestions_PresenterConfiguresIt' time='0.001'/>
+  </testsuite>
+  <testsuite name='DomainTests.WorkflowPresenterTests' tests='9' failures='0'>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenData_WhenRegistering_ThenOutputReloads' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenData_WhenViewReady_ThenOutputReloads' time='0.002'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenError_WhenViewReady_ThenOutputReloads' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenPages_WhenEditingProfile_ThenOutputHas1Page' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenPages_WhenRegistering_ThenOutputHas3Pages' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenPages_WhenViewingProfile_ThenOutputHas3Pages' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenViewReady_WhenEditingProfile_ThenOutputHas1Page' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenViewReady_WhenRegistering_ThenOutputHas3Pages' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowPresenterTests' name='test_GivenViewReady_WhenViewingProfile_ThenOutputHas3Pages' time='0.000'/>
+  </testsuite>
+  <testsuite name='DomainTests.WorkflowTests' tests='20' failures='0'>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenCheckboxTicked_WhenValidatingRequired_ThenReturnsValid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenCheckboxUnTicked_WhenValidatingNotRequired_ThenReturnsValid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenCheckboxUnTicked_WhenValidatingRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenDropdownEmpty_WhenValidatingNotRequired_ThenReturnsValid' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenDropdownFilled_WhenValidatingRequired_ThenReturnsValid' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenDropdownInappropriatelyFilled_WhenValidatingNotRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenDropdownInappropriatelyFilled_WhenValidatingRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldValueEmpty_WhenValidatingNonRequired_ThenReturnsValid' time='0.002'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldValueLong_WhenValidatingRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldValueNonAlphabetic_WhenValidatingRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldValueReallyLong_WhenValidatingNonRequired_ThenReturnsInvalid' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldValueShort_WhenValidatingNonRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldValueShort_WhenValidatingRequired_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithIncorrectValue_WhenValidatingPhone_ThenReturnsInvalid' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithNonEmailValue_WhenValidatingEmail_ThenReturnsInvalid' time='0.001'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithNumberValues_WhenValidatingAlphanumeric_ThenReturnsInvalid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithValue_WhenValidatingAlphanumeric_ThenReturnsValid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithValue_WhenValidatingEmail_ThenReturnsValid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithValue_WhenValidatingPhone_ThenReturnsValid' time='0.000'/>
+    <testcase classname='DomainTests.WorkflowTests' name='testGivenTextFieldWithValue_WhenValidatingWebsite_ThenReturnsValid' time='0.000'/>
+  </testsuite>
+  <testsuite name='DataTests.BundleLoaderDataServiceTests' tests='3' failures='0'>
+    <testcase classname='DataTests.BundleLoaderDataServiceTests' name='testGivenDataInvalid_WhenLoadingData_ThenFoundError' time='0.008'/>
+    <testcase classname='DataTests.BundleLoaderDataServiceTests' name='testGivenDataValid_WhenLoadingData_ThenReturnsData' time='0.004'/>
+    <testcase classname='DataTests.BundleLoaderDataServiceTests' name='testGivenFileNotFound_WhenLoadingData_ThenFoundError' time='0.000'/>
+  </testsuite>
+  <testsuite name='DataTests.DataPersistenceTests' tests='1' failures='0'>
+    <testcase classname='DataTests.DataPersistenceTests' name='testGivenInitialResult_WhenFetching_ThenEntitiesReturned' time='0.295'/>
+  </testsuite>
+  <testsuite name='DataTests.FeatureFlagParserTests' tests='1' failures='0'>
+    <testcase classname='DataTests.FeatureFlagParserTests' name='testGivenData_WhenDecoding_ThenFeatureFlagsCreated' time='0.006'/>
+  </testsuite>
+  <testsuite name='DataTests.NavigationConfigParserTests' tests='1' failures='0'>
+    <testcase classname='DataTests.NavigationConfigParserTests' name='testGivenData_WhenDecoding_ThenNavConfigCreated' time='0.003'/>
+  </testsuite>
+  <testsuite name='DataTests.NetworkDataServiceTests' tests='10' failures='0'>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_givenDeleteWithParameters_ThenParametersProcessed' time='0.003'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_GivenGettingData_AndPersistenceSet_WhenSuccesful_ThenResultReturned' time='0.001'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_GivenGettingData_SuccessWithDifferentData_ThenErrorReturned' time='0.001'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_GivenGettingData_WhenSuccesful_ThenResultReturned' time='0.001'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_GivenGettingData_WhenWrongData_ThenErrorReturned' time='0.000'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_GivenNoData_WhenGettingData_ThenErrorReturned' time='0.000'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_GivenParsingError_WhenGettingData_ThenErrorReturned' time='0.002'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_givenPatchWithParameters_ThenParametersProcessed' time='0.001'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_givenPostWithParameters_ThenParametersProcessed' time='0.000'/>
+    <testcase classname='DataTests.NetworkDataServiceTests' name='test_givenPutWithParameters_ThenParametersProcessed' time='0.000'/>
+  </testsuite>
+  <testsuite name='DataTests.SignUpConfigParserTests' tests='1' failures='0'>
+    <testcase classname='DataTests.SignUpConfigParserTests' name='testGivenData_WhenDecoding_ThenPagesAreCreated' time='0.003'/>
+  </testsuite>
+  <testsuite name='PresentationTests.AppPresenterTests' tests='4' failures='0'>
+    <testcase classname='PresentationTests.AppPresenterTests' name='test_GivenAppStarting_WhenAppLoaded_ThenModulesPreseted' time='0.006'/>
+    <testcase classname='PresentationTests.AppPresenterTests' name='test_GivenDeepLink_AndTokenPresent_WhenAppLoaded_ThenLinkLoaded' time='0.011'/>
+    <testcase classname='PresentationTests.AppPresenterTests' name='test_GivenSignupRequired_AndTokenPresent_WhenAppLoaded_ThenModulesPresented' time='0.000'/>
+    <testcase classname='PresentationTests.AppPresenterTests' name='test_GivenSignupRequired_WhenAppLoaded_ThenModulesPresented' time='0.001'/>
+  </testsuite>
+  <testsuite name='PresentationTests.WorkflowPagePresenterTests' tests='24' failures='0'>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoading_HasControls' time='0.006'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingEmailField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingFirstNameField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingGenderDropDown_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingIntroField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingLargeImagePicker_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingLastNameField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingLocationField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingPhoneField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingPrivateInfoLabel_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingSmallImagePicker_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenProfileEditPage_WhenLoadingWebsiteField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoading_HasControls' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoadingEmailField_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoadingLabel_PresenterConfiguresIt' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter0_WhenLoadingPasswordField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoading_HasControls' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoadingGenderDropdown_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoadingLabel_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter1_WhenLoadingNameField_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoading_HasControls' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoadingLabel_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoadingTCsCheckbox_PresenterConfiguresIt' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPagePresenterTests' name='test_GivenRegistrationPagePresenter2_WhenLoadingUniSuggestions_PresenterConfiguresIt' time='0.001'/>
+  </testsuite>
+  <testsuite name='PresentationTests.WorkflowPresenterTests' tests='9' failures='0'>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenData_WhenRegistering_ThenOutputReloads' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenData_WhenViewReady_ThenOutputReloads' time='0.003'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenError_WhenViewReady_ThenOutputReloads' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenPages_WhenEditingProfile_ThenOutputHas1Page' time='0.001'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenPages_WhenRegistering_ThenOutputHas3Pages' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenPages_WhenViewingProfile_ThenOutputHas3Pages' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenViewReady_WhenEditingProfile_ThenOutputHas1Page' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenViewReady_WhenRegistering_ThenOutputHas3Pages' time='0.000'/>
+    <testcase classname='PresentationTests.WorkflowPresenterTests' name='test_GivenViewReady_WhenViewingProfile_ThenOutputHas3Pages' time='0.000'/>
+  </testsuite>
+  <testsuite name='IosCoreTests.AppRouterTests' tests='3' failures='0'>
+    <testcase classname='IosCoreTests.AppRouterTests' name='test_GivenAppLoaded_WhenSetupModules_ThenTabsLaunched' time='0.020'/>
+    <testcase classname='IosCoreTests.AppRouterTests' name='test_GivenAppRequiresWelcom_ThenWelcomeStarted' time='0.008'/>
+    <testcase classname='IosCoreTests.AppRouterTests' name='test_GivenWindow_WhenStartingApp_ThenTabsLaunched' time='0.001'/>
+  </testsuite>
+  <testsuite name='IosCoreTests.CollajeImageContentEngineTests' tests='18' failures='0'>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_1photo_Landscape' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_1photo_Portrait' time='0.000'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_2photos_1stLandscape_2Lines1photoEach' time='0.000'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_2photos_1stLandscape_2Lines1photoEach_2ndPortrait' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_2photos_1stPortrait_1Line2photos' time='0.004'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Landscape' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Portrait' time='0.000'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_3photos_1stPortrait_2Lines_1photoOnFirst_2photosOnSecond' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond_2ndlineLandscape' time='0.000'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond' time='0.000'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond_2ndlineLandscape' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_ImageAtIndex_3photos_1stLanscape_2Lines_1photoOnFirst_2photosOnSecond_Landscape' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_ImageAtIndex_4photos_1stLanscape_2Lines_1photoOnFirst_3photosOnSecond' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='test_ImageAtIndex_4photos_1stPortrait_2Lines_2photoOnFirst_2photosOnSecond' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='testImageAtIndex1' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='testImageAtIndex2_When1Section' time='0.001'/>
+    <testcase classname='IosCoreTests.CollajeImageContentEngineTests' name='testImageAtIndex2_When2Sections' time='0.001'/>
+  </testsuite>
+  <testsuite name='IosCoreTests.ConfigurationTests' tests='3' failures='0'>
+    <testcase classname='IosCoreTests.ConfigurationTests' name='test_WhenDeepLinking_DeepLinkingInvalidBeforeConfig' time='0.003'/>
+    <testcase classname='IosCoreTests.ConfigurationTests' name='test_WhenDeepLinking_ThenConfigsLoadedBeforeDeepLinking' time='0.001'/>
+    <testcase classname='IosCoreTests.ConfigurationTests' name='test_WhenStartingApp_ThenConfigsLoaded_AndFinishedSetup' time='0.001'/>
+  </testsuite>
+  <testsuite name='ProfileTests.LoginPresenterTests' tests='2' failures='0'>
+    <testcase classname='ProfileTests.LoginPresenterTests' name='test_givenDidLogin_whenFailure_thenErrorIsDisplayed' time='0.011'/>
+    <testcase classname='ProfileTests.LoginPresenterTests' name='test_givenDidLogin_whenSuccess_thenSuccessLoginSuccessDisplayed' time='0.002'/>
+  </testsuite>
+  <testsuite name='ProfileTests.LogoutPresenterTests' tests='2' failures='0'>
+    <testcase classname='ProfileTests.LogoutPresenterTests' name='test_GivenSessionPresent_WhenDidPressLogout_ThenUserLoggedOut' time='0.001'/>
+    <testcase classname='ProfileTests.LogoutPresenterTests' name='test_WhenDidPressLogout_ThenUserLoggedOut' time='0.000'/>
+  </testsuite>
+  <testsuite name='ProfileTests.LogoutRouterTests' tests='1' failures='0'>
+    <testcase classname='ProfileTests.LogoutRouterTests' name='testRouter_WhenCallingStart_HostIsPopulatedWithLogoutButton' time='0.001'/>
+  </testsuite>
+  <testsuite name='ProfileTests.ProfileFollowersPresenterTests' tests='6' failures='0'>
+    <testcase classname='ProfileTests.ProfileFollowersPresenterTests' name='test_GivenFollowedBy_WhenViewReady_ProfileListFetched' time='0.001'/>
+    <testcase classname='ProfileTests.ProfileFollowersPresenterTests' name='test_GivenFollowing_WhenViewReady_ProfileListFetched' time='0.000'/>
+    <testcase classname='ProfileTests.ProfileFollowersPresenterTests' name='test_WhenFollowTapped_ThenRefreshed' time='0.005'/>
+    <testcase classname='ProfileTests.ProfileFollowersPresenterTests' name='test_WhenUnfollowTapped_ThenRefreshed' time='0.000'/>
+    <testcase classname='ProfileTests.ProfileFollowersPresenterTests' name='test_WhenViewReloading_ThenDataProvided' time='0.000'/>
+    <testcase classname='ProfileTests.ProfileFollowersPresenterTests' name='test_WhenViewReloading_ThenDataProvidedLast' time='0.001'/>
+  </testsuite>
+  <testsuite name='ProfileTests.ProfilePresenterTests' tests='10' failures='0'>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_givenFetchReturns_whenCoverImageAvailable_thenImageIsDownloaded' time='0.003'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_givenFetchReturns_whenFirstNameAvailable_ThenViewIsUpdated' time='0.000'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_GivenFetchReturns_WhenProfilePictureIsAvailable_ProfilePictureIsDownloaded' time='0.000'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_givenProfileIsFetched_whenCoverImageIsNil_thenPlaceholderIsDisplayed' time='0.001'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_GivenProfileIsFetched_whenCoverImageIsPresent_thenCoverImageIsDisplayed' time='0.000'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_GivenProfileIsFetched_WhenProfilePictureIsNil_ThenDisplayPlaceholder' time='0.000'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_givenViewReady_whenCalled_profileIsFetched' time='0.000'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_WhenEditProfileTapped_EditProfileRouted' time='0.001'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='test_WhenFollowToggled_ThenViewReloaded' time='0.001'/>
+    <testcase classname='ProfileTests.ProfilePresenterTests' name='testRouteEditProfile' time='0.001'/>
+  </testsuite>
+  <testsuite name='ProfileTests.ProfileRouterTests' tests='1' failures='0'>
+    <testcase classname='ProfileTests.ProfileRouterTests' name='test_WhenEditProfileTapped_ThenEditProfileIsPresented' time='0.034'/>
+  </testsuite>
+  <testsuite name='ProfileTests.ReportUserPresenterTests' tests='3' failures='0'>
+    <testcase classname='ProfileTests.ReportUserPresenterTests' name='test_WhenReportingUser_GivenInvalidDataSend_ShowServiceError' time='0.005'/>
+    <testcase classname='ProfileTests.ReportUserPresenterTests' name='test_WhenReportingUser_GivenReportStringExceedsMaximumAllowedCharacter_ThenShowErrorAlert' time='0.001'/>
+    <testcase classname='ProfileTests.ReportUserPresenterTests' name='test_WhenReportingUser_GivenSuccesfullReport_ThenCloseReporting' time='0.000'/>
+  </testsuite>
+  <testsuite name='ProfileTests.ReportUserRouterTests' tests='2' failures='0'>
+    <testcase classname='ProfileTests.ReportUserRouterTests' name='test_WhenUserIsFinishedReporting_ThenDismissTheReportUserView' time='0.003'/>
+    <testcase classname='ProfileTests.ReportUserRouterTests' name='test_WhenUserWantsToReportUser_ThenPresentReportView' time='0.003'/>
+  </testsuite>
+  <testsuite name='ProfileTests.SignUpPagePresenterTests' tests='8' failures='0'>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='test_performedSelectionOn_focusOnItem' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testGivenFieldInValid_WhenValidating_ThenPresenterFinishes' time='0.003'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testGivenFieldValid_WhenValidatingOnlineReturnsInValid_ThenPresenterFinishes' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testGivenFieldValid_WhenValidatingOnlineReturnsValid_ThenPresenterFinishes' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testGivenPage_WhenRealoading_ThenAllItemsOnPageDisplayed' time='0.000'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testGivenPage_WhenRealoading_ThenDifferentItemsDisplayed' time='0.000'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testGivenPage_WhenRealoading_ThenLabelConfigured' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPagePresenterTests' name='testWhenViewReadyThenOutputReloads' time='0.000'/>
+  </testsuite>
+  <testsuite name='ProfileTests.SignUpPageViewControllerTests' tests='10' failures='0'>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testDidSelectRowAtIndexPath_callsOnPresenter' time='0.005'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenButtonField_WhenLoadingCell_ThenCellHeightIs100' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenButtonField_WhenLoadingCell_ThenCellIsPopulated' time='0.002'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenInputField_WhenLoadingCell_ThenCellHeightIs100' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenInputField_WhenLoadingCell_ThenCellIsPopulated' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenInvalidInput_WhenHighlightingError_ThenCellIsHighlighted' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenLabel_WhenLoadingCell_ThenCellHeightIs60' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenOtherField_WhenLoadingCell_ThenCellHeightIs60' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenPages_WhenViewLoads_ThenPagePopulated' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPageViewControllerTests' name='testGivenTitle_WhenLoadingCell_ThenCellHeightIs80' time='0.001'/>
+  </testsuite>
+  <testsuite name='ProfileTests.SignUpPresenterTests' tests='2' failures='0'>
+    <testcase classname='ProfileTests.SignUpPresenterTests' name='testGivenViewConfigured_WhenViewReady_ThenCallUpdateTitle' time='0.001'/>
+    <testcase classname='ProfileTests.SignUpPresenterTests' name='testGivenViewIsConfigured_WhenViewReady_ThenPagesAreLoaded' time='0.000'/>
+  </testsuite>
+  <testsuite name='ProfileTests.SignUpRouterTests' tests='1' failures='0'>
+    <testcase classname='ProfileTests.SignUpRouterTests' name='test_givenRouterIsConfigured_whenUpdatePages_thenPagesAppear' time='0.004'/>
+  </testsuite>
+  <testsuite name='ChannelsTests.ChannelListPresenterTests' tests='3' failures='0'>
+    <testcase classname='ChannelsTests.ChannelListPresenterTests' name='test_GivenChannelResponseContainsChannels_WhenViewLoads_ThenChannelsDisplayed' time='0.009'/>
+    <testcase classname='ChannelsTests.ChannelListPresenterTests' name='test_GivenChannelsFetched_WhenTapped_ThenChannelShown' time='0.003'/>
+    <testcase classname='ChannelsTests.ChannelListPresenterTests' name='test_GivenResponseEmpty_WhenViewLoads_ThenErrorDisplayed' time='0.002'/>
+  </testsuite>
+  <testsuite name='ChannelsTests.ChannelsPresenterTests' tests='2' failures='0'>
+    <testcase classname='ChannelsTests.ChannelsPresenterTests' name='test_GivenUserIsMember_WhenLoading_ThenSegmentsHasChatWallMembers' time='0.003'/>
+    <testcase classname='ChannelsTests.ChannelsPresenterTests' name='test_GivenUserIsNotMember_WhenLoading_ThenSegmentsHasMessage' time='0.001'/>
+  </testsuite>
+  <testsuite name='ChannelsTests.ChannelsTests' tests='2' failures='0'>
+    <testcase classname='ChannelsTests.ChannelsTests' name='testExample' time='0.000'/>
+    <testcase classname='ChannelsTests.ChannelsTests' name='testPerformanceExample' time='0.291'/>
+  </testsuite>
+  <testsuite name='PostsTests.CommentsListPresenterTest' tests='11' failures='0'>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_Given0CommentInResponse_WhenViewLoads_ThenCellDisplayed' time='0.020'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenCommenting_WhenViewLoads_ThenInputActionConfigured' time='0.022'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenCommenting_WhenViewLoads_ThenInputFinishedConfigured' time='0.001'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenCommentsFetched_WhenTappedActionOptionDelete_ThenCommentDeleted' time='0.001'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenCommentsResponseContains2Comments_WhenViewLoads_ThenCommentsDisplayed' time='0.000'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenCommentsWithReplies_WhenViewMoreReplies_ThenRepliesDisplayed' time='0.002'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenCreatingNewComment_WhenTappedActionOptionDelete_ThenCommentDeleted' time='0.000'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenMakeing2ndReplyToFirstComment_WhenTappedActionOptionDelete_ThenCommentDeleted' time='0.000'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenReplying_WhenViewLoads_ThenInputFinishedConfigured' time='0.001'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenReplying_WhenViewLoads_ThenViewInputConfigured' time='0.001'/>
+    <testcase classname='PostsTests.CommentsListPresenterTest' name='test_GivenReplyingon1stReplyOnFirstComment_WhenTappedActionOptionDelete_ThenCommentDeleted' time='0.000'/>
+  </testsuite>
+  <testsuite name='PostsTests.CommentsListViewControllerTests' tests='3' failures='0'>
+    <testcase classname='PostsTests.CommentsListViewControllerTests' name='test_WhenViewIsLoaded_TableViewDelegateEqualsTableViewDataSource' time='0.026'/>
+    <testcase classname='PostsTests.CommentsListViewControllerTests' name='test_WhenViewIsLoaded_TableViewNotNil' time='0.003'/>
+    <testcase classname='PostsTests.CommentsListViewControllerTests' name='testGivenViewLoading_WhenCellDequeued_PresenterConfiguresCell' time='0.007'/>
+  </testsuite>
+  <testsuite name='PostsTests.CreatePostPresenterTests' tests='3' failures='0'>
+    <testcase classname='PostsTests.CreatePostPresenterTests' name='test_GivenCreatePost_WhenPasteLink_GetLinkPreview' time='0.006'/>
+    <testcase classname='PostsTests.CreatePostPresenterTests' name='test_GivenCreatePost_WnenPostTapped_CreatePost' time='0.001'/>
+    <testcase classname='PostsTests.CreatePostPresenterTests' name='test_GivenEditPost_WnenPostTapped_CreatePost' time='0.000'/>
+  </testsuite>
+  <testsuite name='PostsTests.CreatePostRouterTests' tests='1' failures='0'>
+    <testcase classname='PostsTests.CreatePostRouterTests' name='test_WhenSharePostToTapped_ThenShareToPresented' time='0.017'/>
+  </testsuite>
+  <testsuite name='PostsTests.PostListPresenterTests' tests='8' failures='0'>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenNewPostsCell_WhenTappedNewPost_ThenRounter_RoutingCreatePost' time='0.001'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenPostResponseContainsPosts_WhenViewLoads_ThenPostsDisplayed' time='0.000'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenPostsFetched_WhenTapped_ThenPostShown' time='0.001'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenPostsFetched_WhenTappedActionOptionDelete_ThenPostDelete' time='0.001'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenPostsFetched_WhenTappedComments_ThenPostPassed' time='0.000'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenPostsFetched_WhenTappedCommentsAuthor_ThenPostPassed' time='0.000'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenPostsFetched_WhenTappedReport_ThenPostPassed' time='0.000'/>
+    <testcase classname='PostsTests.PostListPresenterTests' name='test_GivenResponseEmpty_WhenViewLoads_ThenErrorDisplayed' time='0.001'/>
+  </testsuite>
+  <testsuite name='PostsTests.PostListRouterTests' tests='5' failures='0'>
+    <testcase classname='PostsTests.PostListRouterTests' name='test_WhenNewPostCellTapped_ThenNewPostPresented' time='0.004'/>
+    <testcase classname='PostsTests.PostListRouterTests' name='test_WhenPostAuthorTapped_ThenProfilePresented' time='0.005'/>
+    <testcase classname='PostsTests.PostListRouterTests' name='test_WhenPostContentTapped_ThenDetailPostPresented' time='0.004'/>
+    <testcase classname='PostsTests.PostListRouterTests' name='test_WhenPostEditOptionsTapped_ThenEditPostPresented' time='0.003'/>
+    <testcase classname='PostsTests.PostListRouterTests' name='test_WhenReportPostOptionsTapped_ThenReportPostPresented' time='0.003'/>
+  </testsuite>
+  <testsuite name='PostsTests.PostsRouterTests' tests='3' failures='0'>
+    <testcase classname='PostsTests.PostsRouterTests' name='test_WhenPostAuthorTapped_ThenProfilePresented' time='0.002'/>
+    <testcase classname='PostsTests.PostsRouterTests' name='test_WhenPostEditOptionsTapped_ThenEditPostPresented' time='0.002'/>
+    <testcase classname='PostsTests.PostsRouterTests' name='test_WhenReportPostOptionsTapped_ThenReportPostPresented' time='0.002'/>
+  </testsuite>
+  <testsuite name='PostsTests.ReportPostPresenterTests' tests='2' failures='0'>
+    <testcase classname='PostsTests.ReportPostPresenterTests' name='test_GivenReportPost_WhenReportReasonSelected_ThenReportPost' time='0.000'/>
+    <testcase classname='PostsTests.ReportPostPresenterTests' name='test_GivenReportReasonsResponseContainsResponseReasons_WhenViewLoads_ThenReportReasonsDisplayed' time='0.000'/>
+  </testsuite>
+  <testsuite name='PostsTests.ReportPostRouterTests' tests='2' failures='0'>
+    <testcase classname='PostsTests.ReportPostRouterTests' name='test_WhenCancelButtonTapped_ThanReportPostDismissed' time='0.001'/>
+    <testcase classname='PostsTests.ReportPostRouterTests' name='test_WhenSendButtonTapped_ThanReportPostDismissed' time='0.000'/>
+  </testsuite>
+  <testsuite name='PostsTests.SharePostToPresenterTests' tests='2' failures='0'>
+    <testcase classname='PostsTests.SharePostToPresenterTests' name='test_GivenChannelResponseContainsChannels_WhenViewLoads_ThenChannelsDisplayed' time='0.001'/>
+    <testcase classname='PostsTests.SharePostToPresenterTests' name='test_GivenProfileResponseContainsProfile_WhenViewLoads_ThenProfilesDisplayed' time='0.000'/>
+  </testsuite>
+  <testsuite name='PostsTests.SharePostToRouterTests' tests='2' failures='0'>
+    <testcase classname='PostsTests.SharePostToRouterTests' name='test_WhenCancelButtonTapped_ThanSharePostToDismissed' time='0.001'/>
+    <testcase classname='PostsTests.SharePostToRouterTests' name='test_WhenDoneButtonTapped_ThanSharePostToDismissed' time='0.000'/>
+  </testsuite>
+</testsuites>
