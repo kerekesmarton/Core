@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		10032D39216F8344004D7C4D /* CameraRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10032D38216F8344004D7C4D /* CameraRouting.swift */; };
 		1003A10F2209A15700395809 /* DeepLinkOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1003A10E2209A15700395809 /* DeepLinkOption.swift */; };
+		101C7C3B23A4D18400F177A6 /* Additions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A7199213835E900DE8A6A /* Additions.framework */; };
+		101C7C3C23A4D18400F177A6 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A70AE213830D700DE8A6A /* Domain.framework */; };
+		101C7C3D23A4D18400F177A6 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A71622138312B00DE8A6A /* Presentation.framework */; };
 		10206E3C2244EE0300B81CD1 /* RowHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10206E3B2244EE0300B81CD1 /* RowHeight.swift */; };
 		102A67E622FD5FE5002A45A5 /* CoreTestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 102A67E422FD5FE5002A45A5 /* CoreTestHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		102A67EE22FD63E0002A45A5 /* LogoutProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102A67ED22FD63E0002A45A5 /* LogoutProtocols.swift */; };
@@ -641,6 +644,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				101C7C3B23A4D18400F177A6 /* Additions.framework in Frameworks */,
+				101C7C3C23A4D18400F177A6 /* Domain.framework in Frameworks */,
+				101C7C3D23A4D18400F177A6 /* Presentation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1815,6 +1821,14 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				../Carthage/Build/iOS/Kingfisher.framework,
+				../Carthage/Build/iOS/Reqres.framework,
+				../Carthage/Build/iOS/SnapKit.framework,
+				../Carthage/Build/iOS/TLPhotoPicker.framework,
+				../Carthage/Build/iOS/JWTDecode.framework,
+				../Carthage/Build/iOS/Realm.framework,
+				../Carthage/Build/iOS/RealmSwift.framework,
+				../Carthage/Build/iOS/KeychainSwift.framework,
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -2717,6 +2731,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQQ63777MM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS/**",
+				);
 				INFOPLIST_FILE = IosCore/IosCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2739,6 +2757,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQQ63777MM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS/**",
+				);
 				INFOPLIST_FILE = IosCore/IosCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2760,6 +2782,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQQ63777MM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS/**",
+				);
 				INFOPLIST_FILE = IosCore/IosCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (

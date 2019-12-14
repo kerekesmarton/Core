@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Data
 import Domain
 
 class MockURLSession: Sessionable {

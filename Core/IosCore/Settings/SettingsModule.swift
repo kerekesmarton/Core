@@ -6,7 +6,6 @@
 
 import Foundation
 import Domain
-import Data
 import Presentation
 
 public class SettingsModule: Module {
