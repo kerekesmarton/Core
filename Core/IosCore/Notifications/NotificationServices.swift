@@ -15,7 +15,7 @@ class NotificationServicesInstance: NSObject, UNUserNotificationCenterDelegate, 
     static let shared = NotificationServicesInstance()
     var helper: Any!
     var config: Configurable?
-    let userDefaults = UserDefaults(suiteName: "group.com.default")
+    let userDefaults = UserDefaults(suiteName: "group.co.mkerekes.salsette")
     
     private let badgeKey = "notificationsTab.badge"
     public var shouldShowRedDotOnNotificationsTab: Bool? {
