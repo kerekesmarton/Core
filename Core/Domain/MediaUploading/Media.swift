@@ -23,7 +23,6 @@ public class Video {
     }
 }
 
-
 public class Media {
     
     public enum ModelType: String {

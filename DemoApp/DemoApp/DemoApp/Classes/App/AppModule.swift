@@ -9,9 +9,9 @@ import IosCore
 import Data
 
 class AppModule: Module {
-    func setup(window: UIWindow, config: Configurable) -> (presenter: AppPresenter, router: AppRouter) {
+    func setup(config: Configurable) -> (presenter: AppPresenter, router: AppRouter) {
         
-        let appRouter = AppRouter(window: window, style: DemoAppStyle())
+        let appRouter = AppRouter(windowSource: WindowSource(), style: DemoAppStyle())
         var settingsInteractor: SettingsConfigurable = config.settings    
         let sessionInteractor: AppSession = AppSession(userRepository: config.userProfileStore,
                                                        parser: TokenParser())

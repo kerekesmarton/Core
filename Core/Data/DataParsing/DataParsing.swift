@@ -93,7 +93,7 @@ public struct GenericDataEncoder: DataEncoding {
     func model<U, T>(from entity: U) throws -> T where T : Model {
         switch entity.self {
         default:
-            throw ServiceError.parsing("Unknown error")
+            throw ServiceError.parsing("GenericDataEncoder: entity not found")
         }
     }
     
