@@ -30,13 +30,6 @@ class SummaryList: Object, Codable {
         super.init()
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class Summary: Object, Codable {
@@ -55,13 +48,6 @@ class Summary: Object, Codable {
         super.init()
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class Wrapper: Object, Codable {
@@ -92,13 +78,6 @@ class Wrapper: Object, Codable {
         super.init()
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class Container: Object, Codable {
@@ -123,11 +102,4 @@ class Container: Object, Codable {
         super.init()
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }

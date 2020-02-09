@@ -60,13 +60,6 @@ class CharacterDataWrapper: Wrapper, Model {
         case data
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class CharacterDataContainer: Container, Model {
@@ -117,13 +110,6 @@ class CharacterDataContainer: Container, Model {
         case results
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class Character: CodableCharacter, Model {
@@ -200,13 +186,7 @@ class Character: CodableCharacter, Model {
         case urls        
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
     
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class CodableCharacter: Object, Codable {

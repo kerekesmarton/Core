@@ -34,13 +34,6 @@ class Url: Object, Codable, Model {
         super.init()
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class Image: Object, Codable, Model {
@@ -65,14 +58,6 @@ class Image: Object, Codable, Model {
     
     func matches(parameters: [String : String]) -> Bool {
         return path == parameters["path"]
-    }
-    
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
     }
 }
 
@@ -119,13 +104,6 @@ class CreatorList: SummaryList, Model {
         case items
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class CreatorSummary: Summary, Model {
@@ -164,14 +142,6 @@ class CreatorSummary: Summary, Model {
     
     enum CodingKeys: String, CodingKey {
         case role
-    }
-    
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
     }
 }
 
@@ -218,13 +188,6 @@ class CharacterList: SummaryList, Model {
         case items
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class CharacterSummary: Summary, Model {
@@ -265,13 +228,6 @@ class CharacterSummary: Summary, Model {
         case role
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class ComicList: SummaryList, Model {
@@ -317,13 +273,6 @@ class ComicList: SummaryList, Model {
         case items
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class ComicSummary: Summary, Model {
@@ -353,13 +302,6 @@ class ComicSummary: Summary, Model {
         try super.encode(to: encoder)
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class StoryList: SummaryList, Model {
@@ -405,13 +347,6 @@ class StoryList: SummaryList, Model {
         case items
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class StorySummary: Summary, Model {
@@ -452,13 +387,6 @@ class StorySummary: Summary, Model {
         case type
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class EventList: SummaryList, Model {
@@ -504,13 +432,6 @@ class EventList: SummaryList, Model {
         case items
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class EventSummary: Summary, Model {
@@ -540,13 +461,6 @@ class EventSummary: Summary, Model {
         try super.encode(to: encoder)
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class SeriesList: SummaryList, Model {
@@ -592,13 +506,6 @@ class SeriesList: SummaryList, Model {
         case items
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class SeriesSummary: Summary, Model {
@@ -626,13 +533,5 @@ class SeriesSummary: Summary, Model {
     
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
-    }
-    
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
     }
 }

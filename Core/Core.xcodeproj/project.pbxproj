@@ -12,14 +12,11 @@
 		101C7C3B23A4D18400F177A6 /* Additions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A7199213835E900DE8A6A /* Additions.framework */; };
 		101C7C3C23A4D18400F177A6 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A70AE213830D700DE8A6A /* Domain.framework */; };
 		101C7C3D23A4D18400F177A6 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A71622138312B00DE8A6A /* Presentation.framework */; };
-		101C7C4823A4EF7A00F177A6 /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4123A4EF7A00F177A6 /* JWTDecode.framework */; };
-		101C7C4C23A4EF7A00F177A6 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4323A4EF7A00F177A6 /* KeychainSwift.framework */; };
-		101C7C4E23A4EF7A00F177A6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4423A4EF7A00F177A6 /* RealmSwift.framework */; };
 		101C7C5323A4EFB200F177A6 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A70F62138310700DE8A6A /* Data.framework */; };
-		101C7C7823A4F81A00F177A6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4523A4EF7A00F177A6 /* Realm.framework */; };
 		10206E3C2244EE0300B81CD1 /* RowHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10206E3B2244EE0300B81CD1 /* RowHeight.swift */; };
 		102A67E622FD5FE5002A45A5 /* CoreTestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 102A67E422FD5FE5002A45A5 /* CoreTestHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		102A67EE22FD63E0002A45A5 /* LogoutProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102A67ED22FD63E0002A45A5 /* LogoutProtocols.swift */; };
+		1044E96023F0505C00061915 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C6823A4EFC700F177A6 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		104A70B7213830D700DE8A6A /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A70AE213830D700DE8A6A /* Domain.framework */; };
 		104A70BE213830D700DE8A6A /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = 104A70B0213830D700DE8A6A /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		104A70E1213830F400DE8A6A /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104A70C9213830F400DE8A6A /* DataService.swift */; };
@@ -266,8 +263,6 @@
 		10E75F9723C88C1000C5F562 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9423C88C1000C5F562 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10E75F9823C88C1000C5F562 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9523C88C1000C5F562 /* Realm.framework */; };
 		10E75F9923C88C1000C5F562 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9523C88C1000C5F562 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		10E75F9B23C88C1800C5F562 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9A23C88C1800C5F562 /* Kingfisher.framework */; };
-		10E75F9C23C88C1800C5F562 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9A23C88C1800C5F562 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10E75F9E23C88C1F00C5F562 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9D23C88C1F00C5F562 /* KeychainSwift.framework */; };
 		10E75F9F23C88C1F00C5F562 /* KeychainSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75F9D23C88C1F00C5F562 /* KeychainSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10E75FA123C88C2700C5F562 /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E75FA023C88C2700C5F562 /* JWTDecode.framework */; };
@@ -380,13 +375,13 @@
 			dstSubfolderSpec = 10;
 			files = (
 				10E75FA223C88C2700C5F562 /* JWTDecode.framework in Embed Frameworks */,
-				10E75F9C23C88C1800C5F562 /* Kingfisher.framework in Embed Frameworks */,
 				10E75F9723C88C1000C5F562 /* RealmSwift.framework in Embed Frameworks */,
 				10F84C7823C3349600121E26 /* Reqres.framework in Embed Frameworks */,
 				10E75F9F23C88C1F00C5F562 /* KeychainSwift.framework in Embed Frameworks */,
 				10E75F9923C88C1000C5F562 /* Realm.framework in Embed Frameworks */,
 				10E75F9023C88BBF00C5F562 /* TLPhotoPicker.framework in Embed Frameworks */,
 				10E75F9323C88BD400C5F562 /* SnapKit.framework in Embed Frameworks */,
+				1044E96023F0505C00061915 /* Kingfisher.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,16 +391,7 @@
 /* Begin PBXFileReference section */
 		10032D38216F8344004D7C4D /* CameraRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRouting.swift; sourceTree = "<group>"; };
 		1003A10E2209A15700395809 /* DeepLinkOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkOption.swift; sourceTree = "<group>"; };
-		101C7C4023A4EF7A00F177A6 /* Apollo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Apollo.framework; path = ../../Salsette/Carthage/Build/iOS/Apollo.framework; sourceTree = "<group>"; };
-		101C7C4123A4EF7A00F177A6 /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = ../../Salsette/Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
-		101C7C4223A4EF7A00F177A6 /* ApolloWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApolloWebSocket.framework; path = ../../Salsette/Carthage/Build/iOS/ApolloWebSocket.framework; sourceTree = "<group>"; };
-		101C7C4323A4EF7A00F177A6 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = ../../Salsette/Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
-		101C7C4423A4EF7A00F177A6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../../Salsette/Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		101C7C4523A4EF7A00F177A6 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../../Salsette/Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
-		101C7C6423A4EFC700F177A6 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../../Salsette/Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
-		101C7C6523A4EFC700F177A6 /* TLPhotoPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TLPhotoPicker.framework; path = ../../Salsette/Carthage/Build/iOS/TLPhotoPicker.framework; sourceTree = "<group>"; };
-		101C7C6623A4EFC700F177A6 /* ApolloSQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApolloSQLite.framework; path = ../../Salsette/Carthage/Build/iOS/ApolloSQLite.framework; sourceTree = "<group>"; };
-		101C7C6823A4EFC700F177A6 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../../Salsette/Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		101C7C6823A4EFC700F177A6 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		10206E3B2244EE0300B81CD1 /* RowHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowHeight.swift; sourceTree = "<group>"; };
 		102A67E222FD5FE4002A45A5 /* CoreTestHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreTestHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		102A67E422FD5FE5002A45A5 /* CoreTestHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTestHelpers.h; sourceTree = "<group>"; };
@@ -653,13 +639,12 @@
 		10E75F5423C5F10900C5F562 /* TextRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRouter.swift; sourceTree = "<group>"; };
 		10E75F5523C5F10900C5F562 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		10E75F8823C7DF0600C5F562 /* UniqueStringProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueStringProvider.swift; sourceTree = "<group>"; };
-		10E75F8E23C88BBE00C5F562 /* TLPhotoPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TLPhotoPicker.framework; path = ../Carthage/Build/iOS/TLPhotoPicker.framework; sourceTree = "<group>"; };
-		10E75F9123C88BD400C5F562 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
-		10E75F9423C88C1000C5F562 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		10E75F9523C88C1000C5F562 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
-		10E75F9A23C88C1800C5F562 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
-		10E75F9D23C88C1F00C5F562 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = ../Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
-		10E75FA023C88C2700C5F562 /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = ../Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
+		10E75F8E23C88BBE00C5F562 /* TLPhotoPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TLPhotoPicker.framework; path = Carthage/Build/iOS/TLPhotoPicker.framework; sourceTree = "<group>"; };
+		10E75F9123C88BD400C5F562 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		10E75F9423C88C1000C5F562 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		10E75F9523C88C1000C5F562 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		10E75F9D23C88C1F00C5F562 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
+		10E75FA023C88C2700C5F562 /* JWTDecode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JWTDecode.framework; path = Carthage/Build/iOS/JWTDecode.framework; sourceTree = "<group>"; };
 		10E75FA323C8A13B00C5F562 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		10E75FA623C8A98D00C5F562 /* Models+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Base.swift"; sourceTree = "<group>"; };
 		10E9834823C493F8008721B1 /* Entities+Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Character.swift"; sourceTree = "<group>"; };
@@ -674,7 +659,7 @@
 		10F84BE823C2005400121E26 /* CustomCrypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCrypto.swift; sourceTree = "<group>"; };
 		10F84BEB23C2041200121E26 /* CustomCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCryptoTests.swift; sourceTree = "<group>"; };
 		10F84C7323C285F500121E26 /* ImageURLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURLBuilder.swift; sourceTree = "<group>"; };
-		10F84C7623C3349600121E26 /* Reqres.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reqres.framework; path = ../Carthage/Build/iOS/Reqres.framework; sourceTree = "<group>"; };
+		10F84C7623C3349600121E26 /* Reqres.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reqres.framework; path = Carthage/Build/iOS/Reqres.framework; sourceTree = "<group>"; };
 		10F84C9823C3AD6C00121E26 /* CharacterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterHeaderView.swift; sourceTree = "<group>"; };
 		10F84C9A23C3ADD400121E26 /* CharacterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CharacterHeaderView.xib; sourceTree = "<group>"; };
 		29A439D821F87C4E008459B1 /* DateCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCoder.swift; sourceTree = "<group>"; };
@@ -709,10 +694,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				101C7C4C23A4EF7A00F177A6 /* KeychainSwift.framework in Frameworks */,
-				101C7C4823A4EF7A00F177A6 /* JWTDecode.framework in Frameworks */,
-				101C7C4E23A4EF7A00F177A6 /* RealmSwift.framework in Frameworks */,
-				101C7C7823A4F81A00F177A6 /* Realm.framework in Frameworks */,
 				104A71C9213836A900DE8A6A /* Additions.framework in Frameworks */,
 				104A71CA213836A900DE8A6A /* Domain.framework in Frameworks */,
 			);
@@ -764,7 +745,6 @@
 				10F84C7723C3349600121E26 /* Reqres.framework in Frameworks */,
 				10E75F9623C88C1000C5F562 /* RealmSwift.framework in Frameworks */,
 				101C7C3C23A4D18400F177A6 /* Domain.framework in Frameworks */,
-				10E75F9B23C88C1800C5F562 /* Kingfisher.framework in Frameworks */,
 				101C7C3D23A4D18400F177A6 /* Presentation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1587,22 +1567,12 @@
 			children = (
 				10E75FA023C88C2700C5F562 /* JWTDecode.framework */,
 				10E75F9D23C88C1F00C5F562 /* KeychainSwift.framework */,
-				10E75F9A23C88C1800C5F562 /* Kingfisher.framework */,
 				10E75F9523C88C1000C5F562 /* Realm.framework */,
 				10E75F9423C88C1000C5F562 /* RealmSwift.framework */,
 				10E75F9123C88BD400C5F562 /* SnapKit.framework */,
 				10E75F8E23C88BBE00C5F562 /* TLPhotoPicker.framework */,
 				10F84C7623C3349600121E26 /* Reqres.framework */,
-				101C7C6623A4EFC700F177A6 /* ApolloSQLite.framework */,
 				101C7C6823A4EFC700F177A6 /* Kingfisher.framework */,
-				101C7C6423A4EFC700F177A6 /* SnapKit.framework */,
-				101C7C6523A4EFC700F177A6 /* TLPhotoPicker.framework */,
-				101C7C4023A4EF7A00F177A6 /* Apollo.framework */,
-				101C7C4223A4EF7A00F177A6 /* ApolloWebSocket.framework */,
-				101C7C4123A4EF7A00F177A6 /* JWTDecode.framework */,
-				101C7C4323A4EF7A00F177A6 /* KeychainSwift.framework */,
-				101C7C4523A4EF7A00F177A6 /* Realm.framework */,
-				101C7C4423A4EF7A00F177A6 /* RealmSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1839,6 +1809,7 @@
 				109D3C18239BC78E00D6A4EF /* Sources */,
 				109D3C19239BC78E00D6A4EF /* Frameworks */,
 				109D3C1A239BC78E00D6A4EF /* Resources */,
+				1044E95F23F04D0400061915 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -2032,10 +2003,29 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(PROJECT_DIR)/../Carthage/Build/iOS/RealmSwift.framework",
-				"$(PROJECT_DIR)/../Carthage/Build/iOS/Realm.framework",
-				"$(PROJECT_DIR)/../Carthage/Build/iOS/KeychainSwift.framework",
-				"$(PROJECT_DIR)/../Carthage/Build/iOS/JWTDecode.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Realm.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/KeychainSwift.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/JWTDecode.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		1044E95F23F04D0400061915 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -2598,7 +2588,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = Carthage/Build/iOS;
 				INFOPLIST_FILE = Data/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2630,7 +2620,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = Carthage/Build/iOS;
 				INFOPLIST_FILE = Data/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2654,10 +2644,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PK8NF2ZRV2;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "Carthage/Build/iOS/**";
 				INFOPLIST_FILE = Data/DataTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2678,10 +2665,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PK8NF2ZRV2;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "Carthage/Build/iOS/**";
 				INFOPLIST_FILE = Data/DataTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2868,7 +2852,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = ../Carthage/Build/iOS;
+				FRAMEWORK_SEARCH_PATHS = Carthage/Build/iOS;
 				INFOPLIST_FILE = IosCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2897,7 +2881,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = ../Carthage/Build/iOS;
+				FRAMEWORK_SEARCH_PATHS = Carthage/Build/iOS;
 				INFOPLIST_FILE = IosCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2925,7 +2909,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = ../Carthage/Build/iOS;
+				FRAMEWORK_SEARCH_PATHS = Carthage/Build/iOS;
 				INFOPLIST_FILE = IosCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2949,10 +2933,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQQ63777MM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"../Carthage/Build/iOS/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "Carthage/Build/iOS/**";
 				INFOPLIST_FILE = IosCore/IosCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2975,10 +2956,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQQ63777MM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"../Carthage/Build/iOS/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "Carthage/Build/iOS/**";
 				INFOPLIST_FILE = IosCore/IosCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3000,10 +2978,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HQQ63777MM;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"../Carthage/Build/iOS/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "Carthage/Build/iOS/**";
 				INFOPLIST_FILE = IosCore/IosCoreTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3295,7 +3270,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = Carthage/Build/iOS;
 				INFOPLIST_FILE = Data/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -3319,10 +3294,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PK8NF2ZRV2;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "Carthage/Build/iOS/**";
 				INFOPLIST_FILE = Data/DataTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

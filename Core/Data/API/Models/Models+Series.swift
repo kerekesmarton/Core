@@ -60,13 +60,6 @@ class SeriesDataWrapper: Wrapper, Model {
         case data
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class SeriesDataContainer: Container, Model {
@@ -117,13 +110,6 @@ class SeriesDataContainer: Container, Model {
         case results
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class Series: CodableSeries, Model {
@@ -215,13 +201,6 @@ class Series: CodableSeries, Model {
         case urls
     }
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
-    }
-    
-    required init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
-    }
 }
 
 class CodableSeries: Object, Codable {
