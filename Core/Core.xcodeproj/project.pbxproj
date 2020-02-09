@@ -260,6 +260,10 @@
 		109D3DA6239D702E00D6A4EF /* MediaUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D3C09239BB46C00D6A4EF /* MediaUploader.swift */; };
 		10AC3FBC22E0737A008DAA66 /* MockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104A70CA213830F400DE8A6A /* MockDataService.swift */; };
 		10AC3FC022E099AD008DAA66 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AC3FBF22E099AD008DAA66 /* ErrorResponse.swift */; };
+		10B3FD5123F02758006A0AF1 /* TextPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD4D23F02758006A0AF1 /* TextPresenter.swift */; };
+		10B3FD5223F02758006A0AF1 /* TextRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD4E23F02758006A0AF1 /* TextRouter.swift */; };
+		10B3FD5323F02758006A0AF1 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD4F23F02758006A0AF1 /* TextViewController.swift */; };
+		10B3FD5423F02758006A0AF1 /* TextModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD5023F02758006A0AF1 /* TextModule.swift */; };
 		10BD166A220DC87400E90411 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BD1669220DC87400E90411 /* RealmHelpers.swift */; };
 		10C85A87222E7A4300FC6894 /* UserProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C85A86222E7A4300FC6894 /* UserProfileStore.swift */; };
 		10D2E86221B80B7F001FEFC4 /* ImageHeightCalcuating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D2E86121B80B7F001FEFC4 /* ImageHeightCalcuating.swift */; };
@@ -632,6 +636,10 @@
 		109D3CE9239BC7D200D6A4EF /* MockUITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUITableView.swift; sourceTree = "<group>"; };
 		109D3DA4239D6D2E00D6A4EF /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		10AC3FBF22E099AD008DAA66 /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		10B3FD4D23F02758006A0AF1 /* TextPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextPresenter.swift; sourceTree = "<group>"; };
+		10B3FD4E23F02758006A0AF1 /* TextRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRouter.swift; sourceTree = "<group>"; };
+		10B3FD4F23F02758006A0AF1 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		10B3FD5023F02758006A0AF1 /* TextModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextModule.swift; sourceTree = "<group>"; };
 		10BD1669220DC87400E90411 /* RealmHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
 		10C85A86222E7A4300FC6894 /* UserProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStore.swift; sourceTree = "<group>"; };
 		10D2E86121B80B7F001FEFC4 /* ImageHeightCalcuating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeightCalcuating.swift; sourceTree = "<group>"; };
@@ -1025,6 +1033,7 @@
 				109D3C33239BC7A600D6A4EF /* ErrorRouting.swift */,
 				109D3C3A239BC7A700D6A4EF /* CameraRouting.swift */,
 				109D3C2D239BC7A600D6A4EF /* NibViewLoadable.swift */,
+				10B3FD4C23F02758006A0AF1 /* TextSegment */,
 				109D3CBA239BC7AA00D6A4EF /* AppRouter */,
 				109D3C3F239BC7A700D6A4EF /* Configuration */,
 				109D3CC8239BC7AB00D6A4EF /* ImageGallery */,
@@ -1418,6 +1427,17 @@
 				109D3C09239BB46C00D6A4EF /* MediaUploader.swift */,
 			);
 			path = MediaUploading;
+			sourceTree = "<group>";
+		};
+		10B3FD4C23F02758006A0AF1 /* TextSegment */ = {
+			isa = PBXGroup;
+			children = (
+				10B3FD4D23F02758006A0AF1 /* TextPresenter.swift */,
+				10B3FD4E23F02758006A0AF1 /* TextRouter.swift */,
+				10B3FD4F23F02758006A0AF1 /* TextViewController.swift */,
+				10B3FD5023F02758006A0AF1 /* TextModule.swift */,
+			);
+			path = TextSegment;
 			sourceTree = "<group>";
 		};
 		10D2E83F21B8092C001FEFC4 /* Common */ = {
@@ -2077,6 +2097,7 @@
 				109D3D5B239BC87C00D6A4EF /* EmptyStateView.swift in Sources */,
 				109D3D80239BC89400D6A4EF /* SettingsRouter.swift in Sources */,
 				109D3D16239BC83B00D6A4EF /* ImageCropViewController.swift in Sources */,
+				10B3FD5323F02758006A0AF1 /* TextViewController.swift in Sources */,
 				109D3D27239BC85600D6A4EF /* TextViewInputCell.swift in Sources */,
 				109D3D15239BC83B00D6A4EF /* ImageEditModule.swift in Sources */,
 				109D3D5F239BC87C00D6A4EF /* ReplyingAccessoryView.swift in Sources */,
@@ -2090,6 +2111,7 @@
 				109D3D71239BC88100D6A4EF /* FontCalculating.swift in Sources */,
 				109D3D63239BC87C00D6A4EF /* ActionButtons.swift in Sources */,
 				109D3D0B239BC82F00D6A4EF /* UITextView+HitTest.swift in Sources */,
+				10B3FD5223F02758006A0AF1 /* TextRouter.swift in Sources */,
 				109D3CF3239BC82100D6A4EF /* CustomPhotoModel.swift in Sources */,
 				109D3D72239BC88100D6A4EF /* StyleProviding.swift in Sources */,
 				109D3CED239BC7EF00D6A4EF /* LaunchViewController.swift in Sources */,
@@ -2178,6 +2200,7 @@
 				109D3D0A239BC82F00D6A4EF /* UIStackView.swift in Sources */,
 				109D3D26239BC85600D6A4EF /* SingleButtonCell.swift in Sources */,
 				109D3D81239BC89400D6A4EF /* SettingsViewController.swift in Sources */,
+				10B3FD5423F02758006A0AF1 /* TextModule.swift in Sources */,
 				109D3D62239BC87C00D6A4EF /* ActionRoundedButton.swift in Sources */,
 				109D3D29239BC85600D6A4EF /* TableFooter.swift in Sources */,
 				109D3D05239BC82F00D6A4EF /* UILabel+Gesture.swift in Sources */,
@@ -2191,6 +2214,7 @@
 				109D3D2C239BC85600D6A4EF /* LabelCell.swift in Sources */,
 				109D3D14239BC83600D6A4EF /* MediaConvertingAlert.swift in Sources */,
 				109D3CF9239BC82100D6A4EF /* INSPhotosOverlayView.swift in Sources */,
+				10B3FD5123F02758006A0AF1 /* TextPresenter.swift in Sources */,
 				109D3CF8239BC82100D6A4EF /* INSScalingImageView.swift in Sources */,
 				109D3D08239BC82F00D6A4EF /* UIStoryboard.swift in Sources */,
 				109D3D2E239BC85600D6A4EF /* TextFieldCell.swift in Sources */,
