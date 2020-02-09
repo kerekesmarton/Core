@@ -20,5 +20,7 @@ class DependencyInjection {
         container.add(ImageEditModule())
         container.add(ImageGalleryModule())
         container.add(MediaConvertingModule())
+        
+        container.add(TextModule())
     }
 }
