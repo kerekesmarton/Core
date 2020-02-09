@@ -73,8 +73,8 @@ public class RemoteAsset: Equatable {
 
 public enum CameraRoutingOption {
     case picker(limit: Int, type: AssetType)
-    case viewer(imageModel: Image)
-    case edit(shape: Shape, data: Image)
+    case viewer(imageModel: Media.Image)
+    case edit(shape: Shape, data: Media.Image)
     
     public enum Shape {
         case square(ratio: Double)
@@ -107,6 +107,6 @@ public protocol ImageReferenceCalculating: class {
 public protocol CameraRouting {
     func showCamera(type: AssetType,completion: @escaping (Asset?) -> Void)
     func showPhotoLibrary(for option: CameraRoutingOption, with completion: @escaping ([Asset]) -> Void)
-    func showViewer(option: CameraRoutingOption, with completion: ((Image?) -> Void)?)
+    func showViewer(option: CameraRoutingOption, with completion: ((Media.Image?) -> Void)?)
     func showViewer(for assets: [RemoteAsset], startIndex: Int, reference: ImageReferenceCalculating?)
 }

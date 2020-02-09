@@ -10,7 +10,7 @@ import Additions
 
 public class UploadTracker {
     public let asset: Asset
-    public var response: MediaUploadResponse?
+    public var response: Media.MediaUploadResponse?
     public var error: ServiceError?
     public var id: String {
         return asset.id
@@ -58,8 +58,8 @@ public protocol MediaUploadPogressManaging {
     var readyForUpload: Bool { get }
     var mediaState: MediaState { get }
     var imageAssets: [String:UploadTracker] { get }
-    func startUploading(assets: [Asset], didStart: @escaping (UploadTracker?, ServiceError?) -> Void, completion: @escaping (UploadTracker?, ServiceError?) -> Void)
-    func addExisting(media: [Media], completion: @escaping ([UploadTracker]?, ServiceError?) -> Void)
+    func startUploading(assets: [Asset], didStart: @escaping (Result<UploadTracker, ServiceError>) -> Void, completion: @escaping (Result<UploadTracker, ServiceError>) -> Void)
+    func addExisting(media: [Media], completion: @escaping (Result<[UploadTracker], ServiceError>) -> Void)
     func setup(cell: AttachmentsPresentingOutput)
 }
 
@@ -109,7 +109,47 @@ public class MediaUploadPogressManager: MediaUploadPogressManaging {
         print("deinit")
     }
     
-    public func startUploading(assets: [Asset], didStart: @escaping (UploadTracker?, ServiceError?) -> Void, completion: @escaping (UploadTracker?, ServiceError?) -> Void) {
+    fileprivate func updateOnDidStart(uploadTracker: UploadTracker?, _ result: Result<Media.MediaUploadResponse, ServiceError>, _ didStart: @escaping (Result<UploadTracker, ServiceError>) -> Void) {
+        do {
+            guard let uploadTracker = uploadTracker else {
+                return
+            }
+            let response = try result.get()
+            uploadTracker.response = response
+            output?.reload()
+            didStart(.success(uploadTracker))
+        } catch {
+            guard let uploadTracker = uploadTracker else {
+                return
+            }
+            let serviceError = ServiceError(from: error)
+            uploadTracker.error = serviceError
+            didStart(.failure(serviceError))
+            output?.reload()
+        }
+    }
+    
+    fileprivate func updateOnCompletion(uploadTracker: UploadTracker?, _ result: Result<Media.MediaUploadResponse, ServiceError>, _ completion: @escaping (Result<UploadTracker, ServiceError>) -> Void) {
+        do {
+            guard let uploadTracker = uploadTracker else {
+                return
+            }
+            let response = try result.get()
+            uploadTracker.response = response
+            completion(.success(uploadTracker))
+            output?.reload()
+        } catch {
+            guard let uploadTracker = uploadTracker else {
+                return
+            }
+            let serviceError = ServiceError(from: error)
+            uploadTracker.error = serviceError
+            completion(.failure(serviceError))
+            output?.reload()
+        }
+    }
+    
+    public func startUploading(assets: [Asset], didStart: @escaping (Result<UploadTracker, ServiceError>) -> Void, completion: @escaping (Result<UploadTracker, ServiceError>) -> Void) {
         
         let newAssets = assets.compactMap { UploadTracker(asset: $0) }
         newAssets.forEach { (uploadTracker) in
@@ -121,17 +161,12 @@ public class MediaUploadPogressManager: MediaUploadPogressManaging {
                                          finaliseService: mediaUploadFinaliseService,
                                          image: image,
                                          didStart:
-                { [weak uploadTracker, weak self] (response, error) in
-                    uploadTracker?.response = response
-                    uploadTracker?.error = error
-                    self?.output?.reload()
-                    didStart(uploadTracker, error)
+                { [weak uploadTracker, weak self] (result: Result<Media.MediaUploadResponse, ServiceError>) in
+                    self?.updateOnDidStart(uploadTracker: uploadTracker, result, didStart)
+                    
                 }, completion:
-                { [weak self, weak uploadTracker] (response, error) in
-                    uploadTracker?.response = response
-                    uploadTracker?.error = error
-                    completion(uploadTracker, error)
-                    self?.output?.reload()
+                { [weak self, weak uploadTracker] (result: Result<Media.MediaUploadResponse, ServiceError>) in
+                    self?.updateOnCompletion(uploadTracker: uploadTracker, result, completion)
             })
             
             imageAssets[uploadTracker.id] = uploadTracker
@@ -141,7 +176,7 @@ public class MediaUploadPogressManager: MediaUploadPogressManaging {
     }
     
     
-    public func addExisting(media: [Media], completion: @escaping ([UploadTracker]?, ServiceError?) -> Void) {
+    public func addExisting(media: [Media], completion: @escaping (Result<[UploadTracker], ServiceError>) -> Void) {
         
         DispatchQueue.global().async { [weak self] in
             let assets = try? media.compactMap { (media) -> Asset? in
@@ -152,7 +187,7 @@ public class MediaUploadPogressManager: MediaUploadPogressManaging {
                 return Asset(data: data, id: media._id, type: AssetType(with: media.type))
             }
             guard let safeAssets = assets else {
-                completion(nil, ServiceError.parsing("Couldn't add existing images"))
+                completion(.failure(ServiceError.parsing("Couldn't add existing images")))
                 return
             }
             
@@ -164,7 +199,7 @@ public class MediaUploadPogressManager: MediaUploadPogressManaging {
             }
             
             DispatchQueue.main.async { [weak self] in
-                completion(trackers, nil)
+                completion(.success(trackers))
                 self?.output?.reload()
             }
         }

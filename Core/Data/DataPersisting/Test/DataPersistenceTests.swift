@@ -16,7 +16,7 @@ class DataPersistenceTests: XCTestCase {
     var realm: Realm!
     var persistence: DataPersistence<StubEntity, StubModel>!
     override func setUp() {
-        super.setUp()        
+        super.setUp()
         do {
             realm = try Realm(configuration: Realm.Configuration(inMemoryIdentifier: Constants.identifier))
         } catch  {
@@ -27,12 +27,12 @@ class DataPersistenceTests: XCTestCase {
         persistence = DataPersistence(identifier: Constants.identifier)
     }
     
-    func testGivenInitialResult_WhenFetching_ThenEntitiesReturned() {
+    func testGivenInitialResult_WhenFetching_ThenEntitiesReturned() throws {
         persistence.realm = realm
         var capturedResults: StubEntity?
         let exp = expectation(description: "waiting for realm")
-        persistence.fetch(with: [:]) { (results: StubEntity?, error) in
-            capturedResults = results
+        persistence.fetch(with: [:]) { (results: Result<StubEntity, ServiceError>) in
+            capturedResults = try? results.get()
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1)
@@ -74,19 +74,19 @@ class StubModel: Object, Model {
     
     init(field: String) {
         super.init()
-        self.field = field        
+        self.field = field
     }
     
     required public init() {
         super.init()
     }
     
-    required public init(value: Any, schema: RLMSchema) {
-        super.init(value: value, schema: schema)
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
     }
     
-    required public init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init(realm: realm, schema: schema)
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
     }
     
     open override class func primaryKey() -> String? { return "field" }

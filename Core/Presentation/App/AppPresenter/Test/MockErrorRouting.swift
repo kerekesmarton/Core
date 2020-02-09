@@ -23,8 +23,8 @@ open class MockErrorRouting: ErrorRouting, CameraRouting {
         completion(stubData)
     }
     
-    var stubImage: Image?
-    public func showViewer(option: CameraRoutingOption, with completion: ((Image?) -> Void)?) {
+    var stubImage: Media.Image?
+    public func showViewer(option: CameraRoutingOption, with completion: ((Media.Image?) -> Void)?) {
         spyCameraRoutingOption = option
         completion?(stubImage)
     }

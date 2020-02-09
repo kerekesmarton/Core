@@ -91,7 +91,7 @@ public extension CameraRouting where Self: Routing {
         present(controller: result.1)
     }
     
-    func showViewer(option: CameraRoutingOption, with completion: ((Image?) -> Void)?) {
+    func showViewer(option: CameraRoutingOption, with completion: ((Media.Image?) -> Void)?) {
         
         switch option {
         case .viewer(imageModel: let imageModel):
@@ -114,7 +114,7 @@ public extension CameraRouting where Self: Routing {
         
     }
     
-    private func cropAndTransformToData(with model: ImageCropViewController.Model, completion: @escaping (Image?)->Void) {
+    private func cropAndTransformToData(with model: ImageCropViewController.Model, completion: @escaping (Media.Image?)->Void) {
         
         let imageEdit: ImageEditModule = config.appModules.module()
         let result = imageEdit.setup(model: model, config: config, completion: { croppedImage in
@@ -122,7 +122,7 @@ public extension CameraRouting where Self: Routing {
                 completion(nil)
                 return
             }
-            completion(Image(data: croppedImage))
+            completion(Media.Image(data: croppedImage))
         })
         
         addChild(router: result.router)

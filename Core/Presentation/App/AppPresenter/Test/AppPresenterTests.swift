@@ -194,17 +194,3 @@ class MockNotificationServices: NotificationServices {
         spyPresenter = presenter
     }
 }
-
-final class MockDefaultSettings: DefaultSettings {
-    func bool(forKey defaultName: String) -> Bool {
-        return true
-    }
-    
-    func string(forKey defaultName: String) -> String? {
-        return ""
-    }
-    
-    func set(_ value: Any?, forKey defaultName: String) {}
-    
-    func synchronize() -> Bool { return true }
-}

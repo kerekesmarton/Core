@@ -12,13 +12,13 @@ protocol DataConvertable {
     var previewData: Data? { get }
 }
 
-extension Image: DataConvertable {
+extension Media.Image: DataConvertable {
     var previewData: Data? {
         return  data
     }
 }
 
-extension Video: DataConvertable {}
+extension Media.Video: DataConvertable {}
 
 protocol ConversionOperatable {
     var result: DataConvertable? { get }
@@ -110,7 +110,7 @@ public class PhotosDataStore: PhotosDataFetching {
                 completionHandler(nil, asset.localIdentifier)
                 return
             }
-            completionHandler(Image(data: data), asset.localIdentifier)            
+            completionHandler(Media.Image(data: data), asset.localIdentifier)
         }
     }
     
@@ -128,7 +128,7 @@ public class PhotosDataStore: PhotosDataFetching {
             }
             do {
                 let data = try Data(contentsOf: urlAsset.url)
-                let video: Video = Video(url: urlAsset.url, data: data)
+                let video: Media.Video = Media.Video(url: urlAsset.url, data: data)
                 completionHandler(video, asset.localIdentifier)
             } catch {
                 completionHandler(nil, asset.localIdentifier)

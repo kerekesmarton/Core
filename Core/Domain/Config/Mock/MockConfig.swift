@@ -7,6 +7,7 @@
 import Foundation
 import Photos
 import UserNotifications
+import Additions
 
 public class MockConfig: Configurable {
     
@@ -51,6 +52,10 @@ public class MockConfig: Configurable {
     
     public var keychain: (KeychainLoading & SessionCleaning) {
         return MockKeychain()
+    }
+    
+    public var uniqueStringProviding: UniqueStringProviding {
+        return MockUniqueStringProviding(defaults: UserDefaults.standard)
     }
     
     public var userProfileStore: UserProfileStoring {
@@ -105,11 +110,11 @@ public class MockUserProfileStore: UserProfileStoring {
 class MockPhotosStore: PhotosDataFetching {
     
     func image(for asset: PHAsset, with size: CGSize, completionHandler: @escaping PhotoFetchingCompletion, progressHandler: UpdateBlock?) {
-        completionHandler(Image(data: Data()), "")
+        completionHandler(Media.Image(data: Data()), "")
     }
     
     func video(for asset: PHAsset, completionHandler: @escaping VideoFetchingCompletion, progressHandler: UpdateBlock?) {
-        completionHandler(Video(url: URL(string: "somevideo.com")!, data: Data()), "")
+        completionHandler(Media.Video(url: URL(string: "somevideo.com")!, data: Data()), "")
     }
     
 }
@@ -152,4 +157,26 @@ class MockNotificationServiceable: NotificationServiceable  & NotificationRefres
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {}
     
     func forwardNotifications(userInfo: [AnyHashable : Any]) {}
+}
+
+public class MockUniqueStringProviding: UniqueStringProviding {
+    public var uniqueString: String
+    
+    public init(defaults: DefaultSettings) {
+        self.uniqueString = defaults.string(forKey: "ts")!
+    }
+}
+
+final class MockDefaultSettings: DefaultSettings {
+    func bool(forKey defaultName: String) -> Bool {
+        return true
+    }
+    
+    func string(forKey defaultName: String) -> String? {
+        return ""
+    }
+    
+    func set(_ value: Any?, forKey defaultName: String) {}
+    
+    func synchronize() -> Bool { return true }
 }

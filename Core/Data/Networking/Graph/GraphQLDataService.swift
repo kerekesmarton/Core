@@ -9,7 +9,7 @@ import Additions
 import Domain
 import Apollo
 
-class GraphQLDataService: SpecialisedDataService {
+class GraphQLDataService {
     
     var userStore: UserProfileStoring
     let dataPersistence: DataPersisting?
@@ -32,65 +32,7 @@ class GraphQLDataService: SpecialisedDataService {
     private(set) lazy var apollo = ApolloClient(networkTransport: self.networkTransport)
 
     
-    func getData<T>(from: URL, completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
     
-    func getData<T>(from: URL, parameters: [String : String], completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func getData<T>(parameters: [String], completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func getData<T>(parameters: [String : String], completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func getData<T, U>(payload: U?, completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func getData<T, U>(parameters: [String], payload: U?, completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func getData<T, U>(parameters: [String : String], payload: U?, completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func upload<T, U>(data: Data, parameters: [String : String], payload: U, completion: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func subscribeToCache<T>(changes: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func subscribeToCache<T>(with parameters: [String : String], changes: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func fetchCache<T>(parameters: [String : String], update: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func fetchCacheList<T>(parameters: [String : String], update: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
-    
-    func saveCache<T>(payload: T, parameters: [String : String], completion: @escaping (ServiceError?) -> Void) {
-        
-    }
-    
-    func deleteCache(completion: @escaping (ServiceError?) -> Void) {
-        
-    }
-    
-    func getData<T>(fetchResult: @escaping (T?, ServiceError?) -> Void) {
-        
-    }
     
     
 }
@@ -131,7 +73,7 @@ extension GraphQLDataService: HTTPNetworkTransportTaskCompletedDelegate {
                         response: URLResponse?,
                         error: Error?) {
     
-    print(request)
-    print(response)
+    print(request.description)
+    print(response?.description ?? "")
   }
 }

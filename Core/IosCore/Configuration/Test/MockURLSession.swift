@@ -46,7 +46,7 @@ class MockURLSession: Sessionable {
                     
                     storedPair.response = data
                 }
-                let query = Environment.dev.baseUrl.absoluteString + q
+                let query = Environment.local.baseUrl.absoluteString + q
                 var stored = storedData[query] ?? []
                 stored.append(storedPair)
                 storedData[query] = stored

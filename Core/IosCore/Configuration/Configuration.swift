@@ -6,8 +6,8 @@ import Foundation
 import Domain
 import Data
 import Additions
-import Reqres
 import Photos
+import Reqres
 
 public class Configuration: Configurable {
     
@@ -68,6 +68,14 @@ public class Configuration: Configurable {
 
     public var photosFetching: PhotosDataFetching = PhotosDataStore(imageManager: PHImageManager())
     
+    public var uniqueStringProviding: UniqueStringProviding {
+        if ProcessInfo().isUITesting {
+            return MockUniqueStringProviding(defaults: ProcessInfo())
+        } else {
+            return UniqueStringProvider()
+        }
+    }
+    
     public func loadConfiguration(didFinish: @escaping ()-> Void) {
         let didFinishOperation = BlockOperation(block: {
             self.dispatcher.dispatchMain {
@@ -98,15 +106,10 @@ public class Configuration: Configurable {
     
     //MARK: - Private methods
     private func setupServices() {
-        setupNetworkLogging()
-    }
-    
-    private func setupNetworkLogging() {
         #if DEBUG
         Reqres.register()
         #endif
     }
-
 }
 
 

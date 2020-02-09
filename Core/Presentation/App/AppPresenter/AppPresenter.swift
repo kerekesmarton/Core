@@ -70,7 +70,6 @@ public protocol AppRouting {
     func start()
     func setupModules(navConfig: NavigationConfiguration) -> TabbedPresenentationOutput
     func setupWelcomeScreen()
-    func setupLoadingScreen()
     func route<T>(deepLink: DeepLinkOption<T>)
     func route(tab: AppRoutableTabs)
 }

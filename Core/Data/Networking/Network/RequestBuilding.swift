@@ -14,39 +14,57 @@ public enum HTTPMethod: String {
     case put = "PUT"
 }
 
+public protocol Encryptable {
+    func md5Data(from string: String) -> Data
+    func md5Hex(from string: String) -> String
+    func md5Base64(from string: String) -> String
+}
+
 protocol RequestBuilding: class {
     var uri: URL { get set }
     var httpBody: Data? { get set }
     var method: HTTPMethod? { get set }
-    var token: String? { get }    
     var cachePolicy: URLRequest.CachePolicy? { get }
     var parameters: [String:String] { get set }
     
+    /// Implemented by extension, do not override.
     func request() throws -> URLRequest
+    
+    /// NetworkDataService asks for the url using the RequestBuilder. Populate fields using `preprocess` frist.
     func createUrl() throws -> URL
+    
+    /// NetworkDataService gives an opportunity for the Request Builder to populate it's required fields, if any.
+    /// - Parameter parameters: Populate this with the required id, keyd by the field name.
     func preprocess(parameters: inout [String: String]) -> [String: String]
+    
+    /// pass parameters to fetch apropriate data model for persistence.
+    /// - Parameter parameters: Populate this with the required id, keyd by the field name.
     func persistenceRequest(parameters: [String: String]) -> [String:String]
 }
 
 public class BaseRequestBuilder {
-    lazy public var uri: URL = baseUrl
-    public var httpBody: Data?
-    public var method: HTTPMethod?
-    public var token: String?
-    public let baseUrl: URL
-    public var parameters = [String:String]()
-    func createUrl() throws -> URL {
-        return uri
-    }
-    public init(config: SettingsConfigurable) {
-        baseUrl = URL(string: config.environment.rawValue)!
+    var httpBody: Data?
+    var method: HTTPMethod? = HTTPMethod(rawValue: "GET")
+    var parameters = [String:String]()
+    lazy var uri: URL = {
+        return settings.environment.baseUrl
+    }()
+    private let store: UserProfileStoring
+    private let settings: SettingsConfigurable
+    private let crypto: Encryptable
+    private let uniqueStringProvider: UniqueStringProviding
+    public init(store: UserProfileStoring, config: SettingsConfigurable, crypto: Encryptable, uniqueStringProviding: UniqueStringProviding) {
+        self.store = store
+        self.settings = config
+        self.crypto = crypto
+        self.uniqueStringProvider = uniqueStringProviding
     }
 }
 
 extension RequestBuilding {
     
-    private func decorated(_ requestToDecorate: URLRequest) -> URLRequest {
-        var request = requestToDecorate
+    private func decorated(url: URL) throws -> URLRequest {
+        var request: URLRequest = URLRequest(url: url)
         if let body = httpBody {
             request.httpBody = body
         }
@@ -55,9 +73,6 @@ extension RequestBuilding {
             request.setValue(contentType, forHTTPHeaderField: acceptKey)
         }
         request.setValue(userAgent, forHTTPHeaderField: userAgentKey)
-        if let token = token {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
         if let method = method {
             request.httpMethod = method.rawValue
         }
@@ -69,7 +84,7 @@ extension RequestBuilding {
     }
     
     func request() throws -> URLRequest {
-        return try decorated(URLRequest(url: createUrl()))
+        return try decorated(url: createUrl())
     }
     
     func request(with parameters: [String:String]) throws -> URLRequest {
@@ -78,9 +93,9 @@ extension RequestBuilding {
         guard self.parameters.count > 0 else {
             return try self.request()
         }
-        let components = try URLComponents(url: createUrl(), resolvingAgainstBaseURL: false)!
-        let request = URLRequest(url: components.url!)
-        return decorated(request)
+        let components = try URLComponents(url: createUrl(), resolvingAgainstBaseURL: false)
+        guard let url = components?.url else { throw ServiceError.parsing("request cannot be made with params \(parameters)") }
+        return try decorated(url: url)
     }
     
     func preprocess(parameters: inout [String : String]) -> [String : String] {
@@ -88,30 +103,11 @@ extension RequestBuilding {
     }
     
     func request(with parameters: [String]) throws -> URLRequest {
-        var uri = try createUrl()
+        var url = try createUrl()
         parameters.forEach { (component) in
-            uri = uri.appendingPathComponent(component)
-        }        
-        let request = URLRequest(url: uri)
-        return decorated(request)
-    }
-    
-    func add(queryItems: [URLQueryItem], to url: URL) throws -> URL {
-        guard !queryItems.isEmpty else {
-            return url
+            url = url.appendingPathComponent(component)
         }
-        
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            throw ServiceError.parsing("could not generate request")
-        }
-        
-        components.queryItems = queryItems
-        
-        guard let url = components.url else {
-            throw ServiceError.parsing("could not generate request")
-        }
-        
-        return url
+        return try decorated(url: url)
     }
     
     var contentTypeFieldKey: String {
@@ -145,7 +141,7 @@ extension RequestBuilding {
         var uploadData = Data()
         
         uploadData.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        // Add the field and its value to the raw http request data        
+        // Add the field and its value to the raw http request data
         uploadData.append("Content-Disposition: form-data; name=\"metadata\"\r\n".data(using: .utf8)!)
         uploadData.append("\r\n".data(using: .utf8)! + meta + "\r\n".data(using: .utf8)!)
         
@@ -189,4 +185,24 @@ extension RequestBuilding {
         return [:]
     }
     
+}
+
+extension URL {
+    func add(queryItems: [URLQueryItem]) throws -> URL {
+        guard !queryItems.isEmpty else {
+            return self
+        }
+        
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else {
+            throw ServiceError.parsing("could not generate request")
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw ServiceError.parsing("could not generate request")
+        }
+        
+        return url
+    }
 }

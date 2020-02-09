@@ -19,8 +19,8 @@ public class UploadingMedia {
 
 public protocol MediaUploading {
     var image: UploadingMedia { get }
-    var didStart: ((MediaUploadResponse?, ServiceError?) -> Void) { get }
-    var completion: ((MediaUploadResponse?, ServiceError?) -> Void) { get }
+    var didStart: (Result<Media.MediaUploadResponse, ServiceError>) -> Void { get }
+    var completion: (Result<Media.MediaUploadResponse, ServiceError>) -> Void { get }
 }
 
 public class MediaUploader: AsyncOperaiton, MediaUploading {
@@ -35,8 +35,8 @@ public class MediaUploader: AsyncOperaiton, MediaUploading {
                 uploadService: SpecialisedDataService,
                 finaliseService: SpecialisedDataService,
                 image: UploadingMedia,
-                didStart: @escaping (MediaUploadResponse?, ServiceError?) -> Void,
-                completion: @escaping (MediaUploadResponse?, ServiceError?) -> Void) {
+                didStart: @escaping (Result<Media.MediaUploadResponse, ServiceError>) -> Void,
+                completion: @escaping (Result<Media.MediaUploadResponse, ServiceError>) -> Void) {
         
         self.initService = initService
         self.uploadService = uploadService
@@ -52,53 +52,62 @@ public class MediaUploader: AsyncOperaiton, MediaUploading {
         guard !isCancelled else { return }
         
         //Starting init service
-        let initRequest = InitRequest(mediaType: image.type.rawValue,
+        let initRequest = Media.InitRequest(mediaType: image.type.rawValue,
                                                totalBytes: image.data.count)
         
-        initService.getData(payload: initRequest, completion: { [weak self] (response: MediaUploadResponse?, error) in
+        initService.getData(payload: initRequest, completion: { [weak self] (result: Result<Media.MediaUploadResponse, ServiceError>) in
             guard let weakSelf = self, !weakSelf.isCancelled else { return }
-            guard let appendRequest = AppendRequestMetadata(safe: response), error == nil else {
-                self?.didStart(nil, error)
-                return
+            do {
+                let response = try result.get()
+                guard let appendRequest = Media.AppendRequestMetadata(safe: response) else {
+                    self?.didStart(.failure(ServiceError.unknown))
+                    return
+                }
+                self?.didStart(.success(response))
+                self?.upload(request: appendRequest)
+            } catch {
+                self?.didStart(.failure(ServiceError.init(from: error)))
             }
-            self?.didStart(response, nil)
-            self?.upload(request: appendRequest)
         })
     }
     
     
     //MARK: - MediaUploading implementation
     public let image: UploadingMedia
-    public let didStart: (MediaUploadResponse?, ServiceError?) -> Void
-    public let completion: (MediaUploadResponse?, ServiceError?) -> Void
+    public let didStart: (Result<Media.MediaUploadResponse, ServiceError>) -> Void
+    public let completion: (Result<Media.MediaUploadResponse, ServiceError>) -> Void
     
     
     //MARK: - Private methods
-    private func upload(request: AppendRequestMetadata) {
+    private func upload(request: Media.AppendRequestMetadata) {
         //convert meta into parameters
         guard !isCancelled else { return }
         let params = [String : String]()
         
-        uploadService.upload(data: image.data, parameters: params, payload: request) { [weak self] (result: Void?, error) in
-            
+        uploadService.upload(data: image.data, parameters: params, payload: request) { [weak self] (result: Result<Media.MediaUploadResponse, ServiceError>) in
             guard let weakSelf = self, !weakSelf.isCancelled else { return }
-            if let error = error {
-                self?.completion(nil, error)
-                 
+            do {
+                let _ = try result.get()
+                self?.finalize(id: request.mediaId)
+            } catch {
+                self?.didStart(.failure(ServiceError.init(from: error)))
             }
-            self?.finalize(id: request.mediaId)
-            
         }
         
     }
     
     private func finalize(id: String) {
-        let request = FinalizeRequest(mediaId: id)
+        let request = Media.FinalizeRequest(mediaId: id)
         guard !isCancelled else { return }
-        finaliseService.getData(payload: request) { [weak self] (response: MediaUploadResponse?, error) in
+        finaliseService.getData(payload: request) { [weak self] (result: Result<Media.MediaUploadResponse, ServiceError>) in
             guard let weakSelf = self, !weakSelf.isCancelled else { return }
-            self?.completion(response, error)
-            self?.state = .finished
+            do {
+                let response = try result.get()
+                self?.completion(.success(response))
+                self?.state = .finished
+            } catch {
+                self?.didStart(.failure(ServiceError.init(from: error)))
+            }
         }
     }
 }

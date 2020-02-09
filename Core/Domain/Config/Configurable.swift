@@ -65,10 +65,14 @@ public protocol KeychainLoading {
 
 public protocol PhotosDataFetching {
     typealias UpdateBlock = (Double, Error?, [AnyHashable : Any]?) -> Void
-    typealias PhotoFetchingCompletion = (Image?, String?) -> Void
-    typealias VideoFetchingCompletion = (Video?, String?) -> Void
+    typealias PhotoFetchingCompletion = (Media.Image?, String?) -> Void
+    typealias VideoFetchingCompletion = (Media.Video?, String?) -> Void
     func image(for asset: PHAsset, with size: CGSize, completionHandler: @escaping PhotoFetchingCompletion, progressHandler: UpdateBlock?)
     func video(for asset: PHAsset, completionHandler: @escaping VideoFetchingCompletion, progressHandler: UpdateBlock?)
+}
+
+public protocol UniqueStringProviding {
+    var uniqueString: String { get }
 }
 
 public protocol Configurable {
@@ -78,6 +82,7 @@ public protocol Configurable {
     var notificationServices: NotificationServiceable & NotificationRefreshable { get set }
     var userProfileStore: UserProfileStoring { get }
     var photosFetching: PhotosDataFetching { get }
+    var uniqueStringProviding: UniqueStringProviding { get }
     func loadConfiguration(didFinish: @escaping ()-> Void)
     func addToLoad(block: @escaping ()-> Void)
 }

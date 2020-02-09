@@ -38,14 +38,17 @@ class NetworkDataServiceTests: XCTestCase {
         mockedSession.stubStatus = 400
         let mockedParser = MockDataParser<StubEntity>()
         let mockedRequestBuilder = MockRequestBuilder()
-        mockedRequestBuilder.stubRequest = URLRequest(url: URL(string: "a@a.com")!)
+        mockedRequestBuilder.stubURL = URL(string: "a@a.com")!
         let service = givenService(with: mockedRequestBuilder, mockedParser, mockedSession)
         
         var capturedError: ServiceError?
         var capturedEntity: StubEntity?
-        service.getData(from: URL(string: "a@a.com")!) { (entity: StubEntity?, error) in
-            capturedEntity = entity
-            capturedError = error
+        service.getData(from: URL(string: "a@a.com")!) { (result: Result<StubEntity, ServiceError>) in
+            do {
+                capturedEntity = try result.get()
+            } catch {
+                capturedError = ServiceError(from: error)
+            }
         }
         
         XCTAssertEqual(mockedSession.spyRequest?.url?.absoluteString, mockedRequestBuilder.request.url?.absoluteString)
@@ -65,15 +68,18 @@ class NetworkDataServiceTests: XCTestCase {
         let urlResponse: HTTPURLResponse = HTTPURLResponse(url: stubURL, mimeType: nil, expectedContentLength: 100, textEncodingName: nil)
         mockedParser.stubError = ServiceError.server(urlResponse, nil)
         let mockedRequestBuilder = MockRequestBuilder()
-        mockedRequestBuilder.stubRequest = URLRequest(url: URL(string: "a@a.com")!)
+        mockedRequestBuilder.stubURL = URL(string: "a@a.com")!
         let service = givenService(with: mockedRequestBuilder, mockedParser, mockedSession)
         
         var capturedError: ServiceError?
         var capturedEntity: StubEntity?
         
-        service.getData(from: stubURL) { (entity: StubEntity?, error) in
-            capturedEntity = entity
-            capturedError = error
+        service.getData(from: stubURL) { (result: Result<StubEntity, ServiceError>) in
+            do {
+                capturedEntity = try result.get()
+            } catch {
+                capturedError = ServiceError(from: error)
+            }
         }
         
         XCTAssertEqual(mockedSession.spyRequest?.url?.absoluteString, mockedRequestBuilder.request.url?.absoluteString)
@@ -81,7 +87,7 @@ class NetworkDataServiceTests: XCTestCase {
             XCTFail()
             return
         }
-        XCTAssertNotNil(mockedParser.spyData)        
+        XCTAssertNotNil(mockedParser.spyData)
         XCTAssertNil(capturedEntity)
     }
     
@@ -90,35 +96,40 @@ class NetworkDataServiceTests: XCTestCase {
         mockedSession.stubData = "error".data(using: .utf8)
         let mockedParser = MockDataParser<StubEntity>()
         let mockedRequestBuilder = MockRequestBuilder()
-        mockedRequestBuilder.stubRequest = URLRequest(url: URL(string: "a@a.com")!)
+        mockedRequestBuilder.stubURL = URL(string: "a@a.com")!
         let service = givenService(with: mockedRequestBuilder, mockedParser, mockedSession)
         
         var capturedError: ServiceError?
         var capturedEntity: StubEntity?
-        service.getData(from: URL(string: "a@a.com")!) { (entity: StubEntity?, error) in
-            capturedEntity = entity
-            capturedError = error
-        }        
+        service.getData(from: URL(string: "a@a.com")!) { (result: Result<StubEntity, ServiceError>) in
+            do {
+                capturedEntity = try result.get()
+            } catch {
+                capturedError = ServiceError(from: error)
+            }
+        }
         XCTAssertEqual(mockedSession.spyRequest?.url?.absoluteString, mockedRequestBuilder.request.url?.absoluteString)
-        XCTAssertNil(capturedError)
+        XCTAssertEqual(capturedError, ServiceError.unknown)
         XCTAssertNil(capturedEntity)
     }
     
     func test_GivenGettingData_WhenWrongData_ThenErrorReturned() {
-        let url: URL = URL(string: "a@a.com")!
         let mockedSession = MockSession()
         mockedSession.stubStatus = 400
         let mockedParser = MockDataParser<StubEntity>()
         let mockedRequestBuilder = MockRequestBuilder()
         
-        mockedRequestBuilder.stubRequest = URLRequest(url: url)
+        mockedRequestBuilder.stubURL = URL(string: "a@a.com")!
         let service = givenService(with: mockedRequestBuilder, mockedParser, mockedSession)
         
         var capturedError: ServiceError?
         var capturedEntity: StubEntity?
-        service.getData(from: URL(string: "a@a.com")!) { (entity: StubEntity?, error) in
-            capturedEntity = entity
-            capturedError = error
+        service.getData(from: URL(string: "a@a.com")!) { (result: Result<StubEntity, ServiceError>) in
+            do {
+                capturedEntity = try result.get()
+            } catch {
+                capturedError = ServiceError(from: error)
+            }
         }
         
         XCTAssertEqual(mockedSession.spyRequest?.url?.absoluteString, mockedRequestBuilder.request.url?.absoluteString)
@@ -136,15 +147,18 @@ class NetworkDataServiceTests: XCTestCase {
         let entity = StubEntity(field: "test")
         mockedParser.stubEntity = entity
         let mockedRequestBuilder = MockRequestBuilder()
-        mockedRequestBuilder.stubRequest = URLRequest(url: URL(string: "a@a.com")!)
+        mockedRequestBuilder.stubURL = URL(string: "a@a.com")!
         let service = givenService(with: mockedRequestBuilder, mockedParser, mockedSession)
         
     
         var capturedEntity: StubEntity?
         var capturedError: ServiceError?
-        service.getData(from: URL(string: "a@a.com")!) { (entity: StubEntity?, error) in
-            capturedEntity = entity
-            capturedError = error
+        service.getData(from: URL(string: "a@a.com")!) { (result: Result<StubEntity, ServiceError>) in
+            do {
+                capturedEntity = try result.get()
+            } catch {
+                capturedError = ServiceError(from: error)
+            }
         }
         
         XCTAssertEqual(mockedSession.spyRequest?.url?.absoluteString, mockedRequestBuilder.request.url?.absoluteString)
@@ -159,7 +173,7 @@ class NetworkDataServiceTests: XCTestCase {
         
         mockedParser.stubEntity = entity
         let mockedRequestBuilder = MockRequestBuilder()
-        mockedRequestBuilder.stubRequest = URLRequest(url: URL(string: "a@a.com")!)
+        mockedRequestBuilder.stubURL = URL(string: "a@a.com")!
         let mockedPersistence: MockDataPersisting = MockDataPersisting()
         mockedPersistence.stubItems = entity
         let service = givenService(with: mockedRequestBuilder, mockedParser, mockedSession, mockedPersistence)
@@ -167,9 +181,12 @@ class NetworkDataServiceTests: XCTestCase {
         
         var capturedEntity: StubEntity?
         var capturedError: ServiceError?
-        service.getData(from: URL(string: "a@a.com")!) { (entity: StubEntity?, error) in
-            capturedEntity = entity
-            capturedError = error
+        service.getData(from: URL(string: "a@a.com")!) { (result: Result<StubEntity, ServiceError>) in
+            do {
+                capturedEntity = try result.get()
+            } catch {
+                capturedError = ServiceError(from: error)
+            }
         }
         
         XCTAssertEqual(mockedSession.spyRequest?.url?.absoluteString, mockedRequestBuilder.request.url?.absoluteString)
@@ -182,7 +199,7 @@ class NetworkDataServiceTests: XCTestCase {
         let service = givenStandardService(method)
         let params = ["postId": "1", "commentId": "1"]
         
-        service.getData(parameters: params, payload: entity) { (entity: StubEntity?, error) in }
+        service.getData(parameters: params, payload: entity) { (result: Result<StubEntity, ServiceError>) in }
         
         XCTAssertEqual(mockedRequestBuilder.spyParams, params)
         
@@ -194,7 +211,7 @@ class NetworkDataServiceTests: XCTestCase {
         let service = givenStandardService(method)
         let params = ["postId": "1", "commentId": "1"]
         
-        service.getData(parameters: params) { (entity: StubEntity?, error) in }
+        service.getData(parameters: params) { (result: Result<StubEntity, ServiceError>) in }
         
         XCTAssertEqual(mockedRequestBuilder.spyParams, params)
         XCTAssertEqual(mockedSession.spyRequest!.httpMethod, method.rawValue)
@@ -205,7 +222,7 @@ class NetworkDataServiceTests: XCTestCase {
         let service = givenStandardService(method)
         let params = ["postId": "1", "commentId": "1"]
         
-        service.getData(parameters: params, payload: entity) { (entity: StubEntity?, error) in }
+        service.getData(parameters: params, payload: entity) { (result: Result<StubEntity, ServiceError>) in }
         
         XCTAssertEqual(mockedRequestBuilder.spyParams, params)
         XCTAssertEqual(mockedSession.spyRequest!.httpMethod, method.rawValue)
@@ -216,7 +233,7 @@ class NetworkDataServiceTests: XCTestCase {
         let service = givenStandardService(method)
         let params = ["postId": "1", "commentId": "1"]
         
-        service.getData(parameters: params, payload: entity) { (entity: StubEntity?, error) in }
+        service.getData(parameters: params, payload: entity) { (result: Result<StubEntity, ServiceError>) in }
         
         XCTAssertEqual(mockedRequestBuilder.spyParams, params)
         XCTAssertEqual(mockedSession.spyRequest!.httpMethod, method.rawValue)
@@ -236,7 +253,7 @@ class MockSession: Sessionable {
     }
     
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        spyRequest = request        
+        spyRequest = request
         completionHandler(stubData, stubResponse, stubError)
         return StubDataTask()
     }

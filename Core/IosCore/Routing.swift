@@ -11,13 +11,18 @@ import SafariServices
 public protocol TabModule: Module {
     var tabIdentifier: String { get }
     var tab: Int { get }
+    /// Support for presenting in the Tab Bar of the app
+    /// - Parameters:
+    ///   - title: a title, if used, in the tab bar
+    ///   - image: image for TabBarItem
+    ///   - config: Config object
     func setup(title: String, image: String?, config: Configurable) -> (controller: UIViewController, router: Routing)
 }
 
-public extension TabModule {
+public extension Module {
     
     func createNavigation(with title: String, imageResource: String?, tag: Int) -> UINavigationController {
-        let nav = ClearNavigationController()
+        let nav = NavigationController()
         
         if let imageResource = imageResource {
             let item: UITabBarItem = UITabBarItem(title: title, image: UIImage(named: imageResource), tag: tag)
@@ -130,7 +135,7 @@ extension Routing {
     public func compact() {
         childRouters = childRouters?.filter {
             if $0.router != nil {
-                $0.router?.compact()	
+                $0.router?.compact()
                 return true
             }
             $0.router?.parent = nil
@@ -151,7 +156,7 @@ extension Routing {
         }
         
         guard let responder = parent as? T else {
-            return parent?.findResponder()            
+            return parent?.findResponder()
         }
         
         if let router = responder as? Routing {

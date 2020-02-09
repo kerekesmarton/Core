@@ -40,7 +40,7 @@ public enum DeepLinkOption<T> {
     case payload(T)
     case deeplink(DeepLink)
     
-    public var extractedURL: URL? {        
+    public var extractedURL: URL? {
         switch self {
         case .activity(_):
             return nil
