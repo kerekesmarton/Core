@@ -32,15 +32,14 @@ public class AppRouter: NSObject, Routing, AppRouting, ErrorRouting {
     private var window: UIWindow? {
         return windowSource.window
     }
-    
     let style: StyleProviding
     public weak var delegate: AppRoutingDelegate?
     var tabs: TabBarController?
     var currentChildRouter: Routing?
     
     public init(windowSource: WindowSourceable, style: StyleProviding) {
-        self.windowSource = windowSource
         self.style = style
+        self.windowSource = windowSource
         style.setup()
     }
     
@@ -56,7 +55,7 @@ public class AppRouter: NSObject, Routing, AppRouting, ErrorRouting {
     }
     
     public func start() {
-        setupLoadingScreen()
+//        setupLoadingScreen()
     }
     
     fileprivate func findModule(_ moduleConfig: (NavigationConfiguration.Item), in appmodules: [TabModule]) -> TabModule? {
@@ -92,14 +91,9 @@ public class AppRouter: NSObject, Routing, AppRouting, ErrorRouting {
         let result = welcomeModule.setup(config: config) {[weak self] in
             self?.delegate?.didLogin()
         }
-        
         window?.rootViewController = result.controller
         addChild(router: result.router)
         result.router.start()
-    }
-    
-    public func setupLoadingScreen() {        
-        window?.rootViewController = LaunchViewController.viewController
     }
     
     public func canHandle<T>(deepLink: DeepLinkOption<T>) -> Bool {

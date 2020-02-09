@@ -28,7 +28,7 @@ class AppPresenterTests: XCTestCase {
         mockedRouter.stubOutput = MockAppPresentingOutput()
         mockedNotificationServices = MockNotificationServices()
         mockedSettingsConfig = MockSettingsConfigurable(defaults: MockDefaultSettings())
-        mockUserProfileStore = MockUserProfileStore()
+        mockUserProfileStore = MockUserProfileStore(defaults: MockDefaultSettings())
         
         appPresenter = AppPresenter(router: mockedRouter,
                                     config: mockedConfig,

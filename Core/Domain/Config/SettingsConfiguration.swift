@@ -94,7 +94,7 @@ public class MockSettingsConfigurable: SettingsConfigurable {
     public func register() {}
     
     public var tenant: TenantDescription {
-        return TenantDescription(name: "Std", id: "0332c19e-1f14-4ca2-a8f9-783112c04cf6")
+        return TenantDescription(publicKey: "Std", privateKey: "0332c19e-1f14-4ca2-a8f9-783112c04cf6")
     }
     
     public var featureFlags: FeatureFlags? {
@@ -102,6 +102,6 @@ public class MockSettingsConfigurable: SettingsConfigurable {
     }
     
     public var environment: Environment {
-        return Environment.local
+        return Environment.prod
     }
 }

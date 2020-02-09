@@ -59,6 +59,26 @@ public class BaseRequestBuilder {
         self.crypto = crypto
         self.uniqueStringProvider = uniqueStringProviding
     }
+    
+    private func makeAuthParameters() -> [URLQueryItem] {
+        let ts = uniqueStringProvider.uniqueString
+        let tsQueryItem = URLQueryItem(name: "ts", value: ts)
+        let apiKeyQueryItem = URLQueryItem(name: "apikey", value: store.publicKey)
+        let hashQueryItem = URLQueryItem(name: "hash", value: hash(with: ts))
+        return [tsQueryItem, apiKeyQueryItem, hashQueryItem]
+    }
+    
+    private func hash(with ts: String) -> String? {
+        guard let publicKey = store.publicKey else { return nil }
+        guard let privateKey = store.privateKey else { return nil }
+        return crypto.md5Hex(from: ts + privateKey + publicKey)
+    }
+    
+    func makeQueryItems() -> [URLQueryItem] {
+        var queryItems = parameters.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
+        queryItems.append(contentsOf: makeAuthParameters())
+        return queryItems
+    }
 }
 
 extension RequestBuilding {
@@ -106,7 +126,7 @@ extension RequestBuilding {
         var url = try createUrl()
         parameters.forEach { (component) in
             url = url.appendingPathComponent(component)
-        }
+        }        
         return try decorated(url: url)
     }
     
@@ -141,7 +161,7 @@ extension RequestBuilding {
         var uploadData = Data()
         
         uploadData.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        // Add the field and its value to the raw http request data
+        // Add the field and its value to the raw http request data        
         uploadData.append("Content-Disposition: form-data; name=\"metadata\"\r\n".data(using: .utf8)!)
         uploadData.append("\r\n".data(using: .utf8)! + meta + "\r\n".data(using: .utf8)!)
         

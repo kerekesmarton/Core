@@ -7,8 +7,7 @@
 import Foundation
 
 public enum Environment: String {
-    case prod = "https://eu1.prisma.sh/kerekes-marton-d1867d/scheduler/dev"
-    case local = "http://localhost:4466"
+    case prod = "https://gateway.marvel.com"
     
     static let key = "Environment"
     public var baseUrl: URL {

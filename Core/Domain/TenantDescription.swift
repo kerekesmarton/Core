@@ -7,23 +7,16 @@
 import Foundation
 
 public class TenantDescription {
-    public let name: String
-    public let id: String?
+    public let publicKey: String
+    public let privateKey: String
     
     init(defaults: DefaultSettings, environment: Environment) {
-        name = defaults.string(forKey: "CFBundleDisplayName")!
-        id = nil
+        publicKey = defaults.string(forKey: "publicKey")!
+        privateKey = defaults.string(forKey: "privateKey")!
     }
     
-    init(name: String, id: String?) {
-        self.name = name
-        self.id = id
-    }
-    
-    static var standard: TenantDescription {
-        let name = "Std"
-        return TenantDescription(name: name, id: nil)
+    init(publicKey: String, privateKey: String) {
+        self.publicKey = publicKey
+        self.privateKey = privateKey
     }
 }
-
-

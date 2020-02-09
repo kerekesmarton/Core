@@ -60,7 +60,7 @@ public class Configuration: Configurable {
     
     public var userProfileStore: UserProfileStoring {
         if ProcessInfo().isUITesting {
-            return MockUserProfileStore()
+            return MockUserProfileStore(defaults: ProcessInfo())
         } else {
             return UserProfileStore()
         }
