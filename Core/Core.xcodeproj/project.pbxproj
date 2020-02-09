@@ -264,6 +264,8 @@
 		10B3FD5223F02758006A0AF1 /* TextRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD4E23F02758006A0AF1 /* TextRouter.swift */; };
 		10B3FD5323F02758006A0AF1 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD4F23F02758006A0AF1 /* TextViewController.swift */; };
 		10B3FD5423F02758006A0AF1 /* TextModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD5023F02758006A0AF1 /* TextModule.swift */; };
+		10B3FD5623F02901006A0AF1 /* Reqres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B3FD5523F02901006A0AF1 /* Reqres.framework */; };
+		10B3FD5723F02901006A0AF1 /* Reqres.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 10B3FD5523F02901006A0AF1 /* Reqres.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10BD166A220DC87400E90411 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BD1669220DC87400E90411 /* RealmHelpers.swift */; };
 		10C85A87222E7A4300FC6894 /* UserProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C85A86222E7A4300FC6894 /* UserProfileStore.swift */; };
 		10D2E86221B80B7F001FEFC4 /* ImageHeightCalcuating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D2E86121B80B7F001FEFC4 /* ImageHeightCalcuating.swift */; };
@@ -381,6 +383,7 @@
 			files = (
 				101C7C5E23A4EFC600F177A6 /* KeychainSwift.framework in Embed Frameworks */,
 				101C7C5C23A4EFC600F177A6 /* JWTDecode.framework in Embed Frameworks */,
+				10B3FD5723F02901006A0AF1 /* Reqres.framework in Embed Frameworks */,
 				101C7C6223A4EFC600F177A6 /* RealmSwift.framework in Embed Frameworks */,
 				101C7C6C23A4EFC700F177A6 /* TLPhotoPicker.framework in Embed Frameworks */,
 				101C7C6A23A4EFC700F177A6 /* SnapKit.framework in Embed Frameworks */,
@@ -640,6 +643,7 @@
 		10B3FD4E23F02758006A0AF1 /* TextRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRouter.swift; sourceTree = "<group>"; };
 		10B3FD4F23F02758006A0AF1 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		10B3FD5023F02758006A0AF1 /* TextModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextModule.swift; sourceTree = "<group>"; };
+		10B3FD5523F02901006A0AF1 /* Reqres.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reqres.framework; path = ../Carthage/Build/iOS/Reqres.framework; sourceTree = "<group>"; };
 		10BD1669220DC87400E90411 /* RealmHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
 		10C85A86222E7A4300FC6894 /* UserProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStore.swift; sourceTree = "<group>"; };
 		10D2E86121B80B7F001FEFC4 /* ImageHeightCalcuating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeightCalcuating.swift; sourceTree = "<group>"; };
@@ -731,6 +735,7 @@
 				101C7C3B23A4D18400F177A6 /* Additions.framework in Frameworks */,
 				101C7C6B23A4EFC700F177A6 /* TLPhotoPicker.framework in Frameworks */,
 				101C7C5B23A4EFC600F177A6 /* JWTDecode.framework in Frameworks */,
+				10B3FD5623F02901006A0AF1 /* Reqres.framework in Frameworks */,
 				101C7C3C23A4D18400F177A6 /* Domain.framework in Frameworks */,
 				101C7C5D23A4EFC600F177A6 /* KeychainSwift.framework in Frameworks */,
 				101C7C6123A4EFC600F177A6 /* RealmSwift.framework in Frameworks */,
@@ -1512,6 +1517,7 @@
 		FF2911FC5CAE330151613ECA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				10B3FD5523F02901006A0AF1 /* Reqres.framework */,
 				101C7C6623A4EFC700F177A6 /* ApolloSQLite.framework */,
 				101C7C6823A4EFC700F177A6 /* Kingfisher.framework */,
 				101C7C6423A4EFC700F177A6 /* SnapKit.framework */,
