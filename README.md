@@ -16,7 +16,7 @@ Try to only modifiy the `Core` frameworks if need of extra infrastructure. Place
 
 ## High Level Architecture
 
-![High level architecture](App Architecure.png)
+![High level architecture](https://github.com/kerekesmarton/Core/blob/master/App%20Architecure.png)
 
 ### SOLID, Protocols, TDD, VIPER 
 - [This should be your bible](https://hackernoon.com/solid-principles-made-easy-67b1246bcdf)
