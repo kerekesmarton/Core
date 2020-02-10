@@ -1,4 +1,20 @@
-## High level architecture & contribution guide
+# High level architecture & contribution guide
+
+## Usage
+
+This framework is not yet available with Pods or Carthage. It is a starting point with best practices and useful classes to form the foundation of any project.
+To use simply fork and place in your workspace. Drag dependencies into your relevant frameworks and install 3rd parties from Carthage:
+
+- Add the carthage file located in the `demo` project to your workspace root level. 
+- Run at workspace root level
+    
+        carthage update --platform ios
+
+Core framework is currently configured to be placed (folder structure) next to your main project. If done so, after carthage update is done 3rd parties location should be already good to go.
+
+Try to only modifiy the `Core` frameworks if need of extra infrastructure. Place project specific `Domain`, `Data` and `Presentation` code into another set of frameworks depending on the above.
+
+## High Level Architecture
 
 ![High level architecture](App Architecure.png)
 

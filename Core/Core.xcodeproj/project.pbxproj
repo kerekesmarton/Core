@@ -273,6 +273,7 @@
 		10B3FD5E23F02E30006A0AF1 /* UniqueStringProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD5C23F02E30006A0AF1 /* UniqueStringProvider.swift */; };
 		10B3FD5F23F02E30006A0AF1 /* CustomCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD5D23F02E30006A0AF1 /* CustomCrypto.swift */; };
 		10B3FD6123F02E56006A0AF1 /* CustomCryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B3FD6023F02E56006A0AF1 /* CustomCryptoTests.swift */; };
+		10B7875F23F159A9009888E4 /* SafeInitialisers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7875E23F159A9009888E4 /* SafeInitialisers.swift */; };
 		10BD166A220DC87400E90411 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BD1669220DC87400E90411 /* RealmHelpers.swift */; };
 		10C85A87222E7A4300FC6894 /* UserProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C85A86222E7A4300FC6894 /* UserProfileStore.swift */; };
 		10D2E86221B80B7F001FEFC4 /* ImageHeightCalcuating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D2E86121B80B7F001FEFC4 /* ImageHeightCalcuating.swift */; };
@@ -657,6 +658,7 @@
 		10B3FD5C23F02E30006A0AF1 /* UniqueStringProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniqueStringProvider.swift; sourceTree = "<group>"; };
 		10B3FD5D23F02E30006A0AF1 /* CustomCrypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCrypto.swift; sourceTree = "<group>"; };
 		10B3FD6023F02E56006A0AF1 /* CustomCryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCryptoTests.swift; sourceTree = "<group>"; };
+		10B7875E23F159A9009888E4 /* SafeInitialisers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeInitialisers.swift; sourceTree = "<group>"; };
 		10BD1669220DC87400E90411 /* RealmHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
 		10C85A86222E7A4300FC6894 /* UserProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStore.swift; sourceTree = "<group>"; };
 		10D2E86121B80B7F001FEFC4 /* ImageHeightCalcuating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeightCalcuating.swift; sourceTree = "<group>"; };
@@ -1211,6 +1213,7 @@
 				1094B78E2162348A001D42B2 /* AsyncOperaiton.swift */,
 				104A719B213835EA00DE8A6A /* Additions.h */,
 				108AEA0E22A9124700D721C9 /* TestHelper.swift */,
+				10B7875E23F159A9009888E4 /* SafeInitialisers.swift */,
 				104A719C213835EA00DE8A6A /* Info.plist */,
 			);
 			path = Additions;
@@ -2123,6 +2126,7 @@
 				104A71C42138362100DE8A6A /* ProcessInfo.swift in Sources */,
 				FD15E17522E594C100F5C070 /* NSAttributedString.swift in Sources */,
 				104A71C52138362100DE8A6A /* String.swift in Sources */,
+				10B7875F23F159A9009888E4 /* SafeInitialisers.swift in Sources */,
 				104A71C72138362100DE8A6A /* Dispatching.swift in Sources */,
 				104A71C32138362100DE8A6A /* Array.swift in Sources */,
 				1094B78F2162348A001D42B2 /* AsyncOperaiton.swift in Sources */,
@@ -2642,7 +2646,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = ../Carthage/Build/iOS;
+				FRAMEWORK_SEARCH_PATHS = ../../Carthage/Build/iOS;
 				INFOPLIST_FILE = Presentation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -2673,7 +2677,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = ../Carthage/Build/iOS;
+				FRAMEWORK_SEARCH_PATHS = ../../Carthage/Build/iOS;
 				INFOPLIST_FILE = Presentation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -3271,7 +3275,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = ../Carthage/Build/iOS;
+				FRAMEWORK_SEARCH_PATHS = ../../Carthage/Build/iOS;
 				INFOPLIST_FILE = Presentation/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
