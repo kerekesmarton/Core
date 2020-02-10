@@ -40,12 +40,16 @@ Try to only modifiy the `Core` frameworks if need of extra infrastructure. Place
     This ensure that until the Presentation layer there is no need to know about UIKit, and all domain data stays above the ViewController.
 
     If we have to deploy to a new architecture, only IosCore needs to be duplicated for TvOS or WatchOS.
+    
+![VIPER Architecture](https://github.com/kerekesmarton/Core/blob/master/VIPER.png)
 
 ### Routers, Coordinators and Routing
 - Routers serve their purpose as known in VIPER: starting the feature and managing the navigation stack. Creating new features.
 - What about deep linking? Every router implements 'Routing' to know about it's children. As such a network of routers provide a tree of responders who can each declare wheather they or their children are able to respond to deep links.
 - Also, all routers know about their parents. If a message needs to passed up the chain to a specific protocol, the router tree can do that.
 - Dependency injection is done via Modules. A Module would normally require a host to route on, while returning it's router and  ViewController. The next Router has to be added to the calling router's children once it's started. 
+
+![Coordinator pattern](https://github.com/kerekesmarton/Core/blob/master/Coordinators.png)
 
 ### Style
 - IosCore framework describes a styling protocol. Reusable components in here will try to infer some these styles and decorate themselves accordingly. 
