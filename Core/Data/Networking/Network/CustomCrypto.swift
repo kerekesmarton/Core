@@ -12,17 +12,18 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 
-class CustomCrypto: Encryptable {
+public class CustomCrypto: Encryptable {
     
-    func md5Data(from string: String) -> Data {
+    public init() {}
+    public func md5Data(from string: String) -> Data {
         return md5(from: string)
     }
     
-    func md5Hex(from string: String) -> String {
+    public func md5Hex(from string: String) -> String {
         return md5(from: string).map { String(format: "%02hhx", $0) }.joined()
     }
     
-    func md5Base64(from string: String) -> String {
+    public func md5Base64(from string: String) -> String {
         return md5(from: string).base64EncodedString()
     }
     

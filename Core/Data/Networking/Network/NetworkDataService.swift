@@ -9,7 +9,7 @@ import Additions
 
 public class NetworkDataServiceFactory {}
 
-class NetworkDataService: SpecialisedDataService {
+public class NetworkDataService: SpecialisedDataService {
     
     let session: Sessionable
     var requestBuilder: RequestBuilding
@@ -18,7 +18,7 @@ class NetworkDataService: SpecialisedDataService {
     let dataPersistence: DataPersisting?
     var dispatcher: Dispatching = Dispatcher()
     
-    init(requestBuilder: RequestBuilding, dataParser: DataParsing, dataEncoder: DataEncoding?, session:Sessionable, dataPersistence: DataPersisting? = nil) {
+    public init(requestBuilder: RequestBuilding, dataParser: DataParsing, dataEncoder: DataEncoding?, session:Sessionable, dataPersistence: DataPersisting? = nil) {
         self.requestBuilder = requestBuilder
         self.dataParser = dataParser
         self.session = session
@@ -26,7 +26,7 @@ class NetworkDataService: SpecialisedDataService {
         self.dataEncoder = dataEncoder
     }
     
-    func getData<T>(from url: URL, parameters: [String : String], completion: @escaping (Result<T, ServiceError>) -> Void) {
+    public func getData<T>(from url: URL, parameters: [String : String], completion: @escaping (Result<T, ServiceError>) -> Void) {
         do {
             let request = try requestBuilder.request(with: parameters)
             sendData(with: request, completion: completion)
@@ -58,7 +58,7 @@ class NetworkDataService: SpecialisedDataService {
         }
     }
     
-    func getData<T>(parameters: [String], completion: @escaping (Result<T, ServiceError>) -> Void) {
+    public func getData<T>(parameters: [String], completion: @escaping (Result<T, ServiceError>) -> Void) {
         do {
             let request = try requestBuilder.request(with: parameters)
             sendData(with: request, completion: completion)
@@ -77,7 +77,7 @@ class NetworkDataService: SpecialisedDataService {
         }
     }
     
-    func getData<T, U>(parameters: [String], payload: U?, completion: @escaping (Result<T, ServiceError>) -> Void) {
+    public func getData<T, U>(parameters: [String], payload: U?, completion: @escaping (Result<T, ServiceError>) -> Void) {
         guard let payload = payload, let dataEncoder = dataEncoder else {
             getData(fetchResult: completion)
             return
@@ -85,7 +85,7 @@ class NetworkDataService: SpecialisedDataService {
         encode(dataEncoder, payload, completion: completion)
     }
     
-    func getData<T, U>(payload: U?, completion: @escaping (Result<T, ServiceError>) -> Void) {
+    public func getData<T, U>(payload: U?, completion: @escaping (Result<T, ServiceError>) -> Void) {
         guard let payload = payload, let dataEncoder = dataEncoder else {
             getData(fetchResult: completion)
             return
@@ -93,7 +93,7 @@ class NetworkDataService: SpecialisedDataService {
         encode(dataEncoder, payload, completion: completion)
     }
     
-    func getData<T, U>(parameters: [String : String], payload: U?, completion: @escaping (Result<T, ServiceError>) -> Void) {
+    public func getData<T, U>(parameters: [String : String], payload: U?, completion: @escaping (Result<T, ServiceError>) -> Void) {
         guard let payload = payload, let dataEncoder = dataEncoder else {
             getData(parameters: parameters, completion: completion)
             return
@@ -101,7 +101,7 @@ class NetworkDataService: SpecialisedDataService {
         encode(dataEncoder, payload, parameters, completion: completion)
     }
     
-    func upload<T, U>(data: Data, parameters: [String : String], payload: U, completion: @escaping (Result<T, ServiceError>) -> Void) {
+    public func upload<T, U>(data: Data, parameters: [String : String], payload: U, completion: @escaping (Result<T, ServiceError>) -> Void) {
         
         do {
             guard let metaData = try dataEncoder?.parse(from: payload) else {
@@ -116,7 +116,7 @@ class NetworkDataService: SpecialisedDataService {
         
     }
     
-    func _upload<T>(data: Data, parameters: [String : String], metaData: Data, completion: @escaping (Result<T, ServiceError>) -> Void) {
+    private func _upload<T>(data: Data, parameters: [String : String], metaData: Data, completion: @escaping (Result<T, ServiceError>) -> Void) {
         
         do {
 
@@ -149,7 +149,7 @@ class NetworkDataService: SpecialisedDataService {
         subscribeToCache(with: [:], changes: changes)
     }
     
-    func subscribeToCache<T>(with parameters: [String : String], changes: @escaping (Result<T, ServiceError>) -> Void) {
+    public func subscribeToCache<T>(with parameters: [String : String], changes: @escaping (Result<T, ServiceError>) -> Void) {
         let request = try? requestBuilder.request(with: parameters) //on updates we don't want to push persistent request errors
         let persistenceRequest = requestBuilder.persistenceRequest(parameters: parameters)
         if persistenceRequest.count > 0 {
@@ -173,7 +173,7 @@ class NetworkDataService: SpecialisedDataService {
         
     }
     
-    func fetchCacheList<T>(parameters: [String : String], update: @escaping (Result<T, ServiceError>) -> Void) {
+    public func fetchCacheList<T>(parameters: [String : String], update: @escaping (Result<T, ServiceError>) -> Void) {
         do {
             let request = try requestBuilder.request(with: parameters)
             guard let id = request.url?.absoluteString else {
@@ -335,8 +335,8 @@ extension NetworkDataService {
         let persistenceRequest = requestBuilder.persistenceRequest(parameters: params)
         if persistenceRequest.count > 0 {
             dataPersistence?.fetch(with: persistenceRequest, fetchResult: completion)
-        } else if let url = request.url?.stringRemovingAuthParams() {
-            dataPersistence?.fetch(with: ["id":url], fetchResult: completion)
+        } else if let url = request.url, let str = url.stringRemoving(params: ["apikey", "ts", "hash"]) {
+            dataPersistence?.fetch(with: ["id":str], fetchResult: completion)
         } else {
             dataPersistence?.fetch(with: [:], fetchResult: completion)
         }

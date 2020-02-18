@@ -8,7 +8,7 @@ import Domain
 import RealmSwift
 
 /// Description contained in data layer to abstract data transorfmations
-protocol Model: Equatable {
+public protocol Model: Equatable {
     associatedtype Entity
     /// creates an instance of a the matching domain object
     func generateEntity() throws -> Entity
@@ -20,7 +20,7 @@ protocol Model: Equatable {
     func matches(parameters: [String: String]) -> Bool
 }
 
-protocol DataParsing {
+public protocol DataParsing {
     /**
      Parser data into a given domain object
      - Parameters:
@@ -49,7 +49,7 @@ struct ErrorModel: Codable, Model {
 }
 
 extension DataParsing {
-    func parse<T>(_ data: Data, source: URL? = nil) throws -> T {
+    public func parse<T>(_ data: Data, source: URL? = nil) throws -> T {
         guard let result: T = try decode(from: data, source: source) else {
             throw ServiceError.parsing("failed to parse")
         }
@@ -66,7 +66,7 @@ extension DataParsing {
         }
     }
     
-    func persist<M: Object>(model: M) throws {
+    public func persist<M: Object>(model: M) throws {
         let realm = try RealmFactory.makeRealm()
         try realm.write {
             realm.add(model, update: Realm.UpdatePolicy.modified)
@@ -78,7 +78,7 @@ extension DataParsing {
     }
 }
 
-protocol DataEncoding {
+public protocol DataEncoding {
     /**
      Parser a domain object into data
      - Parameter entity: The domain object to be transformed to data
@@ -98,31 +98,5 @@ extension DataEncoding {
             throw ServiceError.unknown
         }
         return result
-    }
-}
-
-
-public struct GenericDataEncoder: DataEncoding {
-    
-    func model<U, T>(from entity: U) throws -> T where T : Model {
-        switch entity.self {
-        case is Entities.CharacterDataWrapper:
-            return try CharacterDataEncoder().model(from: entity)
-        case is Entities.SeriesDataWrapper:
-            return try SeriedDataEncoder().model(from: entity)
-        default:
-            throw ServiceError.parsing("GenericDataEncoder: entity not found")
-        }
-    }
-    
-    func encode<U>(from entity: U) throws -> Data? {
-        switch entity.self {
-        case is Entities.CharacterDataWrapper:
-            return try CharacterDataEncoder().encode(from: entity)
-        case is Entities.SeriesDataWrapper:
-            return try SeriedDataEncoder().encode(from: entity)
-        default:
-            throw ServiceError.parsing("GenericDataEncoder: entity not found")
-        }
     }
 }

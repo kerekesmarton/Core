@@ -12,7 +12,6 @@
 		101C7C3B23A4D18400F177A6 /* Additions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A7199213835E900DE8A6A /* Additions.framework */; };
 		101C7C3C23A4D18400F177A6 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A70AE213830D700DE8A6A /* Domain.framework */; };
 		101C7C3D23A4D18400F177A6 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104A71622138312B00DE8A6A /* Presentation.framework */; };
-		101C7C4623A4EF7A00F177A6 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4023A4EF7A00F177A6 /* Apollo.framework */; };
 		101C7C4723A4EF7A00F177A6 /* Apollo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4023A4EF7A00F177A6 /* Apollo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		101C7C4823A4EF7A00F177A6 /* JWTDecode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4123A4EF7A00F177A6 /* JWTDecode.framework */; };
 		101C7C4923A4EF7A00F177A6 /* JWTDecode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4123A4EF7A00F177A6 /* JWTDecode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -39,10 +38,11 @@
 		101C7C7223A4EFC700F177A6 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C6823A4EFC700F177A6 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		101C7C7823A4F81A00F177A6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4523A4EF7A00F177A6 /* Realm.framework */; };
 		101C7C7923A4F81A00F177A6 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 101C7C4523A4EF7A00F177A6 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		101C7C7D23A4FA9B00F177A6 /* GraphQLDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101C7C7C23A4FA9B00F177A6 /* GraphQLDataService.swift */; };
 		10206E3C2244EE0300B81CD1 /* RowHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10206E3B2244EE0300B81CD1 /* RowHeight.swift */; };
 		102A67E622FD5FE5002A45A5 /* CoreTestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 102A67E422FD5FE5002A45A5 /* CoreTestHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		102A67EE22FD63E0002A45A5 /* LogoutProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102A67ED22FD63E0002A45A5 /* LogoutProtocols.swift */; };
+		102F049B23FC216400FC4639 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F049A23FC216400FC4639 /* URL.swift */; };
+		102F049F23FC25F100FC4639 /* BlockBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F049E23FC25F000FC4639 /* BlockBarButtonItem.swift */; };
 		1044E99D23F0652E00061915 /* SegmentedHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E96D23F0652E00061915 /* SegmentedHeaderViewController.swift */; };
 		1044E99E23F0652E00061915 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E96E23F0652E00061915 /* SegmentedViewController.swift */; };
 		1044E99F23F0652E00061915 /* SegmentsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E96F23F0652E00061915 /* SegmentsRouter.swift */; };
@@ -415,12 +415,13 @@
 		101C7C6423A4EFC700F177A6 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../../Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		101C7C6523A4EFC700F177A6 /* TLPhotoPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TLPhotoPicker.framework; path = ../../Carthage/Build/iOS/TLPhotoPicker.framework; sourceTree = "<group>"; };
 		101C7C6823A4EFC700F177A6 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = ../../Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
-		101C7C7C23A4FA9B00F177A6 /* GraphQLDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLDataService.swift; sourceTree = "<group>"; };
 		10206E3B2244EE0300B81CD1 /* RowHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowHeight.swift; sourceTree = "<group>"; };
 		102A67E222FD5FE4002A45A5 /* CoreTestHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreTestHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		102A67E422FD5FE5002A45A5 /* CoreTestHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTestHelpers.h; sourceTree = "<group>"; };
 		102A67E522FD5FE5002A45A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		102A67ED22FD63E0002A45A5 /* LogoutProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutProtocols.swift; sourceTree = "<group>"; };
+		102F049A23FC216400FC4639 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		102F049E23FC25F000FC4639 /* BlockBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBarButtonItem.swift; sourceTree = "<group>"; };
 		1044E96D23F0652E00061915 /* SegmentedHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedHeaderViewController.swift; sourceTree = "<group>"; };
 		1044E96E23F0652E00061915 /* SegmentedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
 		1044E96F23F0652E00061915 /* SegmentsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentsRouter.swift; sourceTree = "<group>"; };
@@ -700,7 +701,6 @@
 				101C7C4C23A4EF7A00F177A6 /* KeychainSwift.framework in Frameworks */,
 				101C7C4823A4EF7A00F177A6 /* JWTDecode.framework in Frameworks */,
 				101C7C4E23A4EF7A00F177A6 /* RealmSwift.framework in Frameworks */,
-				101C7C4623A4EF7A00F177A6 /* Apollo.framework in Frameworks */,
 				101C7C7823A4F81A00F177A6 /* Realm.framework in Frameworks */,
 				104A71C9213836A900DE8A6A /* Additions.framework in Frameworks */,
 				104A71CA213836A900DE8A6A /* Domain.framework in Frameworks */,
@@ -782,14 +782,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		101C7C7F23A4FAB900F177A6 /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				101C7C7C23A4FA9B00F177A6 /* GraphQLDataService.swift */,
-			);
-			path = Graph;
-			sourceTree = "<group>";
-		};
 		102A67E322FD5FE5002A45A5 /* CoreTestHelpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -855,6 +847,7 @@
 				1044E98623F0652E00061915 /* ActionRoundedButton.swift */,
 				1044E98723F0652E00061915 /* ReplyingAccessoryView */,
 				1044E98A23F0652E00061915 /* CharacterHeaderView.swift */,
+				102F049E23FC25F000FC4639 /* BlockBarButtonItem.swift */,
 				1044E98B23F0652E00061915 /* PlaceholderTextView.swift */,
 				1044E98C23F0652E00061915 /* AdaptiveContainerView.swift */,
 				1044E98D23F0652E00061915 /* CharacterHeaderView.xib */,
@@ -1144,7 +1137,6 @@
 		104A71362138311F00DE8A6A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				101C7C7F23A4FAB900F177A6 /* Graph */,
 				101C7C7E23A4FAA600F177A6 /* Network */,
 			);
 			path = Networking;
@@ -1208,9 +1200,10 @@
 				104A71BF2138362000DE8A6A /* String.swift */,
 				FD15E17422E594C100F5C070 /* NSAttributedString.swift */,
 				1094B78E2162348A001D42B2 /* AsyncOperaiton.swift */,
-				104A719B213835EA00DE8A6A /* Additions.h */,
 				108AEA0E22A9124700D721C9 /* TestHelper.swift */,
 				10B7875E23F159A9009888E4 /* SafeInitialisers.swift */,
+				102F049A23FC216400FC4639 /* URL.swift */,
+				104A719B213835EA00DE8A6A /* Additions.h */,
 				104A719C213835EA00DE8A6A /* Info.plist */,
 			);
 			path = Additions;
@@ -2062,7 +2055,6 @@
 				104A71542138312000DE8A6A /* MockKeychainWrapper.swift in Sources */,
 				104A714C2138312000DE8A6A /* DataParsing.swift in Sources */,
 				10C85A87222E7A4300FC6894 /* UserProfileStore.swift in Sources */,
-				101C7C7D23A4FA9B00F177A6 /* GraphQLDataService.swift in Sources */,
 				10BD166A220DC87400E90411 /* RealmHelpers.swift in Sources */,
 				10E6F7FF22D605DE00849080 /* DictionaryCoder.swift in Sources */,
 			);
@@ -2120,6 +2112,7 @@
 				104A71C22138362100DE8A6A /* NSError.swift in Sources */,
 				108AEA0F22A9124700D721C9 /* TestHelper.swift in Sources */,
 				104A71C62138362100DE8A6A /* DataFormatter.swift in Sources */,
+				102F049B23FC216400FC4639 /* URL.swift in Sources */,
 				104A71C42138362100DE8A6A /* ProcessInfo.swift in Sources */,
 				FD15E17522E594C100F5C070 /* NSAttributedString.swift in Sources */,
 				104A71C52138362100DE8A6A /* String.swift in Sources */,
@@ -2170,6 +2163,7 @@
 				109D3D1C239BC83F00D6A4EF /* ImageEditingState.swift in Sources */,
 				1044E9A723F0652E00061915 /* EditableTableViewController.swift in Sources */,
 				109D3D0F239BC82F00D6A4EF /* UIView+Borders.swift in Sources */,
+				102F049F23FC25F100FC4639 /* BlockBarButtonItem.swift in Sources */,
 				1044EA0023F0656F00061915 /* ProfileListCell.swift in Sources */,
 				109D3D04239BC82F00D6A4EF /* UILabel.swift in Sources */,
 				1044E9B023F0652E00061915 /* EmptyStateDataSource.swift in Sources */,

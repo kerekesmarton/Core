@@ -18,7 +18,7 @@ public class RealmFactory {
     }
 }
 
-protocol DataPersisting {
+public protocol DataPersisting {
     func fetch<T>(with parameters: [String: String]) -> T?
     func fetch<T>(with parameters: [String: String], fetchResult: @escaping (Result<T, ServiceError>)-> Void)
     
@@ -28,7 +28,7 @@ protocol DataPersisting {
     func deleteAll(deleteResult: @escaping (ServiceError?)-> Void)
 }
 
-class DataPersistence<E, M: Model & Object>: DataPersisting {
+public class DataPersistence<E, M: Model & Object>: DataPersisting {
     
     lazy var realm: Realm? = {
         return try? RealmFactory.makeRealm(with: identifier)

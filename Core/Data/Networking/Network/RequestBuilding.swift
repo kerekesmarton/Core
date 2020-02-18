@@ -20,7 +20,7 @@ public protocol Encryptable {
     func md5Base64(from string: String) -> String
 }
 
-protocol RequestBuilding: class {
+public protocol RequestBuilding: class {
     var uri: URL { get set }
     var httpBody: Data? { get set }
     var method: HTTPMethod? { get set }
@@ -42,11 +42,11 @@ protocol RequestBuilding: class {
     func persistenceRequest(parameters: [String: String]) -> [String:String]
 }
 
-public class BaseRequestBuilder {
-    var httpBody: Data?
-    var method: HTTPMethod? = HTTPMethod(rawValue: "GET")
-    var parameters = [String:String]()
-    lazy var uri: URL = {
+open class BaseRequestBuilder {
+    public var httpBody: Data?
+    public var method: HTTPMethod? = HTTPMethod(rawValue: "GET")
+    public var parameters = [String:String]()
+    public lazy var uri: URL = {
         return settings.environment.baseUrl
     }()
     private let store: UserProfileStoring
@@ -74,14 +74,14 @@ public class BaseRequestBuilder {
         return crypto.md5Hex(from: ts + privateKey + publicKey)
     }
     
-    func makeQueryItems() -> [URLQueryItem] {
+    public func makeQueryItems() -> [URLQueryItem] {
         var queryItems = parameters.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
         queryItems.append(contentsOf: makeAuthParameters())
         return queryItems
     }
 }
 
-extension RequestBuilding {
+public extension RequestBuilding {
     
     private func decorated(url: URL) throws -> URLRequest {
         var request: URLRequest = URLRequest(url: url)
@@ -207,7 +207,7 @@ extension RequestBuilding {
     
 }
 
-extension URL {
+public extension URL {
     func add(queryItems: [URLQueryItem]) throws -> URL {
         guard !queryItems.isEmpty else {
             return self
