@@ -48,7 +48,6 @@
 		1044E99F23F0652E00061915 /* SegmentsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E96F23F0652E00061915 /* SegmentsRouter.swift */; };
 		1044E9A023F0652E00061915 /* TouchRespondScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E97123F0652E00061915 /* TouchRespondScrollView.swift */; };
 		1044E9A123F0652E00061915 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E97323F0652E00061915 /* ViewController.swift */; };
-		1044E9A223F0652E00061915 /* ClearNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E97423F0652E00061915 /* ClearNavigationController.swift */; };
 		1044E9A323F0652E00061915 /* AnimatingHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E97523F0652E00061915 /* AnimatingHeaderViewController.swift */; };
 		1044E9A423F0652E00061915 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E97623F0652E00061915 /* TableViewController.swift */; };
 		1044E9A523F0652E00061915 /* LabelledModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1044E97723F0652E00061915 /* LabelledModule.swift */; };
@@ -427,7 +426,6 @@
 		1044E96F23F0652E00061915 /* SegmentsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentsRouter.swift; sourceTree = "<group>"; };
 		1044E97123F0652E00061915 /* TouchRespondScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchRespondScrollView.swift; sourceTree = "<group>"; };
 		1044E97323F0652E00061915 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1044E97423F0652E00061915 /* ClearNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearNavigationController.swift; sourceTree = "<group>"; };
 		1044E97523F0652E00061915 /* AnimatingHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatingHeaderViewController.swift; sourceTree = "<group>"; };
 		1044E97623F0652E00061915 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		1044E97723F0652E00061915 /* LabelledModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelledModule.swift; sourceTree = "<group>"; };
@@ -835,7 +833,6 @@
 			isa = PBXGroup;
 			children = (
 				1044E97323F0652E00061915 /* ViewController.swift */,
-				1044E97423F0652E00061915 /* ClearNavigationController.swift */,
 				1044E97523F0652E00061915 /* AnimatingHeaderViewController.swift */,
 				1044E97623F0652E00061915 /* TableViewController.swift */,
 				1044E97723F0652E00061915 /* LabelledModule.swift */,
@@ -2240,7 +2237,6 @@
 				1044E9A023F0652E00061915 /* TouchRespondScrollView.swift in Sources */,
 				1044EA1023F0656F00061915 /* SingleButtonCell.swift in Sources */,
 				109D3D02239BC82F00D6A4EF /* UIImage.swift in Sources */,
-				1044E9A223F0652E00061915 /* ClearNavigationController.swift in Sources */,
 				1044E9A323F0652E00061915 /* AnimatingHeaderViewController.swift in Sources */,
 				109D3D06239BC82F00D6A4EF /* UIRefreshControl.swift in Sources */,
 				109D3D18239BC83B00D6A4EF /* PassThroughView.swift in Sources */,
